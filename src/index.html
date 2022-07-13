@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IDAS Svelte App</title>
+
+    <script>
+      if (window.location.search) {
+        var urlParams = new URLSearchParams(location.search);
+        if (urlParams.has("t")) 
+          localStorage.setItem("IDAS_AuthToken", urlParams.get("t"));
+        if (urlParams.has("m")) 
+          localStorage.setItem("IDAS_MandantGuid", urlParams.get("m"));
+        if (urlParams.has("a")) 	
+          localStorage.setItem("IDAS_ApiBaseUrl", urlParams.get("a"));
+        window.location = window.location.origin;
+      }
+    </script>
+  
+    <style lang="postcss">
+      @tailwind base;
+      @tailwind components;
+      @tailwind utilities;
+  
+      html { font-size: 18px; }
+    </style>  
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
