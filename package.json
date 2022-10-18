@@ -18,7 +18,7 @@
     "vite": "^3.1.8"
   },
   "dependencies": {
-    "@gandalan/weblibs": "^0.0.39",
+    "@gandalan/weblibs": "^0.0.40",
     "chota": "^0.8.0",
     "svelte-chota": "^1.8.6",
     "svelte-spa-router": "^3.3.0"
