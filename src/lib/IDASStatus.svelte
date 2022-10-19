@@ -4,7 +4,7 @@
 
     const servername = localStorage.getItem("IDAS_ApiBaseUrl");
     const promise = idas
-        .authenticateWithSSO()
+        .authenticateWithJwt('/#/auth')
         .then(r => idas.mandanten.get(idas.mandantGuid));
 
 </script>
