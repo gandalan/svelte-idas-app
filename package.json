@@ -1,12 +1,18 @@
 {
   "name": "svelte-idas-app",
-  "private": true,
   "version": "0.0.1",
+  "private": true,
   "scripts": {
+    "build": "vite build && dotnet build",
     "dev": "vite",
     "dev-dotnet": "dotnet watch",
-    "build": "vite build && dotnet build",
     "preview": "vite preview"
+  },
+  "dependencies": {
+    "@gandalan/weblibs": "^0.0.41",
+    "chota": "^0.8.0",
+    "svelte-chota": "^1.8.6",
+    "svelte-spa-router": "^3.3.0"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.9",
@@ -14,13 +20,7 @@
     "postcss": "^8.4.18",
     "svelte": "^3.52.0",
     "svelte-preprocess": "^4.10.7",
-    "tailwindcss": "^3.1.8",
+    "tailwindcss": "^3.2.1",
     "vite": "^3.1.8"
-  },
-  "dependencies": {
-    "@gandalan/weblibs": "^0.0.41",
-    "chota": "^0.8.0",
-    "svelte-chota": "^1.8.6",
-    "svelte-spa-router": "^3.3.0"
   }
 }
