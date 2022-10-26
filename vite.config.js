@@ -25,5 +25,6 @@ export default defineConfig({
             }
         }
     },
-    publicDir: "wwwroot"
+    publicDir: "wwwroot",
+    root: "src"
 })
