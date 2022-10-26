@@ -11,7 +11,7 @@
     "@gandalan/weblibs": "^0.0.41",
     "chota": "^0.8.0",
     "svelte-chota": "^1.8.6",
-    "svelte-spa-router": "^3.3.0"
+    "svelte-routing": "^1.6.0"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.9",
