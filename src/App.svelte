@@ -8,10 +8,8 @@
   const routes = {
     // Home
     '/': IdasStatus,
-
     // Auth
     '/auth*': Auth,
-
     // Counter test
     '/counter': Counter,
   }

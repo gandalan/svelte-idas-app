@@ -1,0 +1,74 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processName": "idas-app.exe",
+            "presentation": {
+                "hidden": true
+            }
+        },
+        {
+            "type": "msedge",
+            "name": "Launch Microsoft Edge",
+            "request": "launch",
+            "runtimeArgs": [
+                "--remote-debugging-port=9222"
+            ],
+            "url": "http://localhost:5000", // Provide your project's url to finish configuring
+            "presentation": {
+                "hidden": true
+            },
+            "webRoot": "${workspaceFolder}/src",
+            "pathMapping": {
+                "/": "${workspaceFolder}/src"
+            }
+        },
+        {
+            "type": "msedge",
+            "name": "Launch Microsoft Edge in headless mode",
+            "request": "launch",
+            "runtimeArgs": [
+                "--headless",
+                "--remote-debugging-port=9222"
+            ],
+            "url": "http://localhost:5000", // Provide your project's url to finish configuring
+            "presentation": {
+                "hidden": true
+            },
+            "webRoot": "${workspaceFolder}/src",
+            "pathMapping": {
+                "/": "${workspaceFolder}/src"
+            }
+        },
+        {
+            "type": "vscode-edge-devtools.debug",
+            "name": "Open Edge DevTools",
+            "request": "attach",
+            "url": "http://localhost:5000", // Provide your project's url to finish configuring
+            "presentation": {
+                "hidden": true
+            }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Debug with embedded browser",
+            "configurations": [
+                "Launch Microsoft Edge in headless mode",
+                "Open Edge DevTools",
+                ".NET Core Attach"
+            ]
+        },
+        {
+            "name": "Debug with external browser",
+            "configurations": [
+                "Launch Microsoft Edge",
+                "Open Edge DevTools",
+                ".NET Core Attach"
+            ]
+        }
+    ]
+}

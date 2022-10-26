@@ -3,10 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "dev": "start dotnet watch && vite --force --host",
     "build": "vite build && dotnet build",
-    "dev": "vite",
-    "dev-dotnet": "dotnet watch",
-    "preview": "vite preview"
+    "preview": "vite build && start dotnet run"
   },
   "dependencies": {
     "@gandalan/weblibs": "^0.0.41",
