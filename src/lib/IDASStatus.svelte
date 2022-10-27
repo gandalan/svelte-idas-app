@@ -3,10 +3,7 @@
     const idas = new IDAS();
 
     const servername = localStorage.getItem("IDAS_ApiBaseUrl");
-    const promise = idas
-        .authenticateWithJwt('/#/auth')
-        .then(r => idas.mandanten.get(idas.mandantGuid));
-
+    const promise = idas.mandanten.get(idas.mandantGuid);
 </script>
 
 {#await promise}

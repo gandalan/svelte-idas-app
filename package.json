@@ -9,8 +9,6 @@
   },
   "dependencies": {
     "@gandalan/weblibs": "^0.0.41",
-    "chota": "^0.8.0",
-    "svelte-chota": "^1.8.6",
     "svelte-routing": "^1.6.0"
   },
   "devDependencies": {
