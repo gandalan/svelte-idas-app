@@ -1,11 +1,10 @@
 <script>
     import { IDAS } from '@gandalan/weblibs';
-    import { location, querystring } from 'svelte-spa-router';
-
+    
     let redirect = '';
 
     $: {
-        let p = new URLSearchParams($querystring);
+        let p = new URLSearchParams(window.location.search);
         const token = p.get('t');
         redirect = p.get('r');
 
@@ -18,7 +17,7 @@
             idas.authorizeWithJwt(token);
         }
 
-        window.location = redirect;
+        window.location.href = redirect;
     }
 
 </script>
