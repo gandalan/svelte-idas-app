@@ -5,8 +5,8 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 export default defineConfig({
     plugins: [svelte()],
     build: {
-        outDir: "wwwroot",
-        emptyOutDir: true,
+        outDir: "../wwwroot",
+        /*emptyOutDir: true,
         rollupOptions: {
             output: {
                 assetFileNames: "assets/[name].[ext]",
@@ -14,7 +14,7 @@ export default defineConfig({
                 entryFileNames: "assets/[name].js",
             },
         },
-        write: true
+        write: true*/
     },
     server: {
         port: 5000,
