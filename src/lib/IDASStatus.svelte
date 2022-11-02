@@ -1,9 +1,11 @@
 <script>
-    import { IDAS } from '@gandalan/weblibs';
-    const idas = new IDAS();
+    import { IDASFactory } from '@gandalan/weblibs';
 
     const servername = localStorage.getItem("IDAS_ApiBaseUrl");
-    const promise = idas.mandanten.get(idas.mandantGuid);
+    const promise = IDASFactory.create()
+    .then(idas => {
+        return idas.mandanten.get(idas.mandantGuid);
+    });
 </script>
 
 {#await promise}
