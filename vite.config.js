@@ -6,15 +6,7 @@ export default defineConfig({
     plugins: [svelte()],
     build: {
         outDir: "../wwwroot",
-        /*emptyOutDir: true,
-        rollupOptions: {
-            output: {
-                assetFileNames: "assets/[name].[ext]",
-                chunkFileNames: "assets/[name].[ext]",
-                entryFileNames: "assets/[name].js",
-            },
-        },
-        write: true*/
+        emptyOutDir: true
     },
     server: {
         port: 5000,
@@ -25,6 +17,5 @@ export default defineConfig({
             }
         }
     },
-    publicDir: "wwwroot",
     root: "src"
 })
