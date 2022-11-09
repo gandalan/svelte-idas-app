@@ -26,3 +26,6 @@ dist-ssr
 
 bin
 obj
+
+# local development env files - NEVER check in!!
+.env
