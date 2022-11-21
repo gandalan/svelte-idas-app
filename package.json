@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@gandalan/weblibs": "^1.0.1",
-    "svelte-routing": "^1.6.0"
+    "svelte-routing": "^1.6.0",
+    "svelte-tabs": "^1.1.0"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.1.0",

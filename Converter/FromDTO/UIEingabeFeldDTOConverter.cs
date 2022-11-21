@@ -48,6 +48,7 @@ namespace COnverter.FromDTO
             item.GueltigAb = dto.GueltigAb;
             item.GueltigBis = dto.GueltigBis;
             item.IstKonfiguratorFeld = dto.IstKonfiguratorFeld;
+            item.Regel = Enum.Parse<UIEingabeFeldRegel>(dto.Regel);
         }
 
         public static void CleanUpFromDTO(UIPflegeContext db, UIDefinition uiDefinition, UIDefinitionDTO dto)

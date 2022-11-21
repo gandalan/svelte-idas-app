@@ -33,6 +33,7 @@ namespace UIPflege.DB
         public int MindestBreite { get; set; }
         public Guid UIEingabeFeldGuid { get; set; }
         public int EingabeLevel { get; set; }
+        public UIEingabeFeldRegel Regel { get; set; }
 
         public int? ZusatzFeldGruppeId { get; set; }
         public int? GehoertZuZusatzFeldGruppeId { get; set; }

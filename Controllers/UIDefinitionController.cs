@@ -38,6 +38,13 @@ namespace Gandalan.IDAS.IDASWebApp.Controllers
             List<string> list = _context.UIDefinitionen.Include(i => i.EingabeFelder).Include(i => i.KonfiguratorFelder).Select(i => i.BezeichnungKurz).ToList() ?? new List<string>();
             return Json(list);
         }
+        [HttpGet]
+        [Route("GetUIDefinitionByName")]
+        public async Task<ActionResult<UIDefinition>> GetByName(string name)
+        {
+            UIDefinition uidef = _context.UIDefinitionen.Include(i => i.EingabeFelder).Include(i => i.KonfiguratorFelder).FirstOrDefault(i => i.BezeichnungKurz == name);
+            return Json(uidef);
+        }
 
         [HttpGet("api/Variante/{id:guid}")]
         public async Task<IActionResult> Get([FromForm] Guid id)

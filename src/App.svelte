@@ -3,7 +3,7 @@
   import { Router, Route } from "svelte-routing";
   import Navbar from "./Navbar.svelte";
   import { BackendFactory } from "./lib/Backend";
-    import UiComponente from "./UIComponente.svelte";
+    import UiComponente from "./UI/UIComponente.svelte";
 
   async function getIDASApiUrl() {
     const backend = await BackendFactory.create();

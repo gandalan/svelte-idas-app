@@ -68,6 +68,9 @@ class Backend
         },        
         async getAllNamen() {
             return await _restClient.get(`UIDefinition/GetAllUIDefinitionNamen`);
+        },  
+        async getByName(name) {
+            return await _restClient.get(`UIDefinition/GetUIDefinitionByName?name=`+name);
         }        
     }
 
