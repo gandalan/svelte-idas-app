@@ -2,6 +2,7 @@
     import { BackendFactory } from "../lib/Backend";
     import { Tabs, Tab, TabList, TabPanel } from "svelte-tabs";
     import EingabeFelderTable from "./EingabeFelderTable.svelte";
+    import KonfiguratorFelderTable from "./KonfiguratorFelderTable.svelte";
 
     let selectedUIDef;
     let selectedUIDefName;
@@ -35,6 +36,8 @@
             <option>{v}</option>
         {/each}
     </select>
+    <br />
+    <br />
 
     <Tabs>
         <TabList>
@@ -48,6 +51,8 @@
             {/if}
         </TabPanel>
 
-        <TabPanel>asdasdasdasdas</TabPanel>
+        <TabPanel>{#if selectedUIDef}
+            <KonfiguratorFelderTable {selectedUIDef} />
+        {/if}</TabPanel>
     </Tabs>
 {/await}

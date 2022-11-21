@@ -43,6 +43,7 @@ namespace Gandalan.IDAS.IDASWebApp.Controllers
         public async Task<ActionResult<UIDefinition>> GetByName(string name)
         {
             UIDefinition uidef = _context.UIDefinitionen.Include(i => i.EingabeFelder).Include(i => i.KonfiguratorFelder).FirstOrDefault(i => i.BezeichnungKurz == name);
+            uidef.EingabeFelder = uidef.EingabeFelder.OrderBy(i => i.Reihenfolge).ToList();
             return Json(uidef);
         }
 
