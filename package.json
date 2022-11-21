@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "dev-vite": "vite --force --host",
     "dev": "start dotnet watch && vite --force --host",
     "build": "vite build && dotnet build",
     "preview": "vite build && start dotnet run"

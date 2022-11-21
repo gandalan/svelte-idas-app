@@ -16,4 +16,28 @@
     <Content Remove="wwwroot\**" />
     <Content Include="wwwroot\**" Watch="false" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Converter\ToDTO\KonfigSatzDTOConverter.cs" />
+    <Compile Remove="Converter\ToDTO\UIDefinitionDTOConverter.cs" />
+    <Compile Remove="Converter\ToDTO\UIEingabeFeldDTOConverter.cs" />
+    <Compile Remove="Converter\ToDTO\UIKonfiguratorFeldDTOConverter.cs" />
+    <Compile Remove="Converter\ToDTO\VarianteDTOConverter.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GDL.IDAS.WebApi.Client" Version="2022.11.17.155" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.23.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Converter\ToDTO\" />
+  </ItemGroup>
 </Project>

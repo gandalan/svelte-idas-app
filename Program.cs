@@ -1,4 +1,8 @@
 using Microsoft.Extensions.FileProviders;
+using Microsoft.EntityFrameworkCore;
+using UIPflege.DB;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var root = Directory.GetCurrentDirectory();
 var dotenv = Path.Combine(root, ".env");
@@ -8,6 +12,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<UIPflegeContext>(
+           options =>
+           {
+               options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+               options.EnableSensitiveDataLogging(true);
+           });
+
+
 
 var app = builder.Build();
 
@@ -31,7 +43,7 @@ app.UseRouting();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    endpoints.MapRazorPages();                
+    endpoints.MapRazorPages();
     endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
     endpoints.MapFallbackToFile("index.html").AllowAnonymous();
 });
