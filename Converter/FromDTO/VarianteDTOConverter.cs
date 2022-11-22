@@ -23,7 +23,10 @@ namespace Converter.FromDTO
             variante.VarianteGuid = dto.VarianteGuid;
 
             variante.KonfigSatzGuid = dto.KonfigSatzGuid;
-            variante.KonfigSatz = KonfigSatzDTOConverter.CreateOrUpdateFromDTO(db, dto);
+            if (variante.KonfigSatzGuid != Guid.Empty)
+            {
+                variante.KonfigSatz = KonfigSatzDTOConverter.CreateOrUpdateFromDTO(db, dto);
+            }
 
             variante.UIDefinitionGuid = dto.UIDefinitionGuid;
             //Raus aus Variante?

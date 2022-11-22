@@ -3,7 +3,10 @@
   import { Router, Route } from "svelte-routing";
   import Navbar from "./Navbar.svelte";
   import { BackendFactory } from "./lib/Backend";
-    import UiComponente from "./UI/UIComponente.svelte";
+    import UIComponent from "./UI/UIComponent.svelte";
+    import KonfigSatzComponent from "./Varianten/KonfigSatzComponent.svelte";
+    import WertelisteComponent from "./Werteliste/WertelisteComponent.svelte";
+    import SyncComponent from "./Sync/SyncComponent.svelte";
 
   async function getIDASApiUrl() {
     const backend = await BackendFactory.create();
@@ -37,7 +40,10 @@
       <div class="p-2 bg-neher-main-bg overflow-auto w-full h-full">
         <Router>
           <div class="p-4">
-            <Route path="/ui" component={UiComponente} />
+            <Route path="/ui" component={UIComponent} />
+            <Route path="/werteliste" component={WertelisteComponent} />
+            <Route path="/konfigsatz" component={KonfigSatzComponent} />
+            <Route path="/sync" component={SyncComponent} />
           </div>
         </Router>
       </div>

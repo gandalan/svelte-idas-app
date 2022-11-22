@@ -35,7 +35,7 @@ namespace Gandalan.IDAS.IDASWebApp.Controllers
         [Route("GetAllUIDefinitionNamen")]
         public async Task<ActionResult<string>> GetAllNamen(bool onlyDirty = false)
         {
-            List<string> list = _context.UIDefinitionen.Include(i => i.EingabeFelder).Include(i => i.KonfiguratorFelder).Select(i => i.BezeichnungKurz).ToList() ?? new List<string>();
+            List<string> list = _context.UIDefinitionen.Select(i => i.BezeichnungKurz).ToList() ?? new List<string>();
             return Json(list);
         }
         [HttpGet]
@@ -55,13 +55,17 @@ namespace Gandalan.IDAS.IDASWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Variante>> AddVariante([FromBody] Variante dto)
+        [HttpPut]
+        [Route("internal/AddOrUpdateUIDefinition")]
+        public async Task<ActionResult<Variante>> AddOrUpdateUIDefinition(Guid guid, [FromBody] UIDefinition uidefinition)
         {
-            if (!_context.Varianten.Any(i => i.VarianteGuid == dto.VarianteGuid))
-                _context.Varianten.Add(dto);
+            UIDefinition uidef = _context.UIDefinitionen.Include(i => i.EingabeFelder).Include(i => i.KonfiguratorFelder).FirstOrDefault(i => i.UIDefinitionGuid == guid);
 
+            //check for isDirty und update dann
+            //DeepCopy or 
+            //uidef = uidefinition;
             await _context.SaveChangesAsync();
-            return Ok(dto);
+            return Ok(uidef);
         }
     }
 }

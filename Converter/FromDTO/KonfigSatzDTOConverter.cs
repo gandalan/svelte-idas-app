@@ -1,5 +1,6 @@
 using Gandalan.IDAS.WebApi.DTO;
 using UIPflege.DB;
+using Microsoft.EntityFrameworkCore;
 
 namespace COnverter.FromDTO
 {
@@ -7,7 +8,7 @@ namespace COnverter.FromDTO
     {
         public static KonfigSatz CreateOrUpdateFromDTO(UIPflegeContext db, VarianteDTO dto)
         {
-            KonfigSatz konfigSatz = db.KonfigSaetze.FirstOrDefault(f => f.KonfigSatzGuid == dto.KonfigSatzGuid);
+            KonfigSatz konfigSatz = db.KonfigSaetze.Include(i => i.Eintraege).FirstOrDefault(f => f.KonfigSatzGuid == dto.KonfigSatzGuid);
 
             if (konfigSatz == null)
             {

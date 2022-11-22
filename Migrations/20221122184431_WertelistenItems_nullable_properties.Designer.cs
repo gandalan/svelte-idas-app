@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UIPflege.DB;
 
@@ -11,9 +12,11 @@ using UIPflege.DB;
 namespace Gandalan.IDAS.IDASWebApp.Migrations
 {
     [DbContext(typeof(UIPflegeContext))]
-    partial class UIPflegeContextModelSnapshot : ModelSnapshot
+    [Migration("20221122184431_WertelistenItems_nullable_properties")]
+    partial class WertelistenItemsnullableproperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +47,7 @@ namespace Gandalan.IDAS.IDASWebApp.Migrations
 
                     b.HasKey("KonfigSatzId");
 
-                    b.ToTable("KonfigSaetze", (string)null);
+                    b.ToTable("KonfigSaetze");
                 });
 
             modelBuilder.Entity("UIPflege.DB.KonfigSatzEintrag", b =>
@@ -87,7 +90,7 @@ namespace Gandalan.IDAS.IDASWebApp.Migrations
 
                     b.HasIndex("KonfigSatzId");
 
-                    b.ToTable("KonfigSatzEintraege", (string)null);
+                    b.ToTable("KonfigSatzEintraege");
                 });
 
             modelBuilder.Entity("UIPflege.DB.UIDefinition", b =>
@@ -130,7 +133,7 @@ namespace Gandalan.IDAS.IDASWebApp.Migrations
 
                     b.HasKey("UIDefinitionId");
 
-                    b.ToTable("UIDefinitionen", (string)null);
+                    b.ToTable("UIDefinitionen");
                 });
 
             modelBuilder.Entity("UIPflege.DB.UIEingabeFeld", b =>
@@ -230,7 +233,7 @@ namespace Gandalan.IDAS.IDASWebApp.Migrations
 
                     b.HasIndex("UIDefinitionId");
 
-                    b.ToTable("EingabeFelder", (string)null);
+                    b.ToTable("EingabeFelder");
                 });
 
             modelBuilder.Entity("UIPflege.DB.UIKonfiguratorFeld", b =>
@@ -300,7 +303,7 @@ namespace Gandalan.IDAS.IDASWebApp.Migrations
 
                     b.HasIndex("UIDefinitionId");
 
-                    b.ToTable("KonfiguratorFelder", (string)null);
+                    b.ToTable("KonfiguratorFelder");
                 });
 
             modelBuilder.Entity("UIPflege.DB.Variante", b =>
@@ -345,7 +348,7 @@ namespace Gandalan.IDAS.IDASWebApp.Migrations
 
                     b.HasIndex("UIDefinitionId");
 
-                    b.ToTable("Varianten", (string)null);
+                    b.ToTable("Varianten");
                 });
 
             modelBuilder.Entity("UIPflege.DB.WerteListe", b =>
@@ -377,7 +380,7 @@ namespace Gandalan.IDAS.IDASWebApp.Migrations
 
                     b.HasKey("WerteListeId");
 
-                    b.ToTable("WerteListe", (string)null);
+                    b.ToTable("WerteListe");
                 });
 
             modelBuilder.Entity("UIPflege.DB.WerteListeItem", b =>
@@ -429,7 +432,7 @@ namespace Gandalan.IDAS.IDASWebApp.Migrations
 
                     b.HasIndex("WerteListeId");
 
-                    b.ToTable("WerteListeItem", (string)null);
+                    b.ToTable("WerteListeItem");
                 });
 
             modelBuilder.Entity("UIPflege.DB.KonfigSatzEintrag", b =>

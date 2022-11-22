@@ -1,5 +1,6 @@
 <script>
     export let selectedUIDef;
+    export let dbUIDef;
 </script>
 
 <table class="border-2 mt-4 border-collapse w-full table-fixed">

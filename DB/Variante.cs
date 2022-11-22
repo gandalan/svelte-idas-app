@@ -16,11 +16,11 @@ namespace UIPflege.DB
         public Guid VarianteGuid { get; set; }
 
         [ForeignKey("KonfigSatzId")]
-        public virtual KonfigSatz KonfigSatz { get; set; }
+        public virtual KonfigSatz? KonfigSatz { get; set; }
         public Guid KonfigSatzGuid { get; set; }
 
         [ForeignKey("UIDefinitionId")]
-        public virtual UIDefinition UIDefinition { get; set; }
+        public virtual UIDefinition? UIDefinition { get; set; }
         public Guid UIDefinitionGuid { get; set; }
 
         public int Version { get; set; }

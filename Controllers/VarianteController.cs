@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Gandalan.IDAS.IDASWebApp.Services;
 using Microsoft.AspNetCore.Authorization;
+using Converter.FromDTO;
 
 namespace Gandalan.IDAS.IDASWebApp.Controllers
 {
@@ -24,22 +25,49 @@ namespace Gandalan.IDAS.IDASWebApp.Controllers
         [HttpGet]
         //[Authorize]
         [Route("GetAllVarianten")]
-        public async Task<ActionResult<Variante>> GetAll(bool onlyDirty = false)
+        public async Task<ActionResult> GetAll(bool includeUI = false, bool onlyDirty = false)
         {
-            List<Variante> list = _context.Varianten.Include(i => i.KonfigSatz.Eintraege).Include(i => i.UIDefinition.EingabeFelder).Include(i => i.UIDefinition.KonfiguratorFelder).ToList();
-            if (onlyDirty)
-                list = list.Where(i => i.IsDirty).ToList();
+            List<Variante> result = new List<Variante>();
+            var list = _context.Varianten.Include(i => i.KonfigSatz.Eintraege);
+            if (includeUI)
+                result = list.Include(i => i.UIDefinition.EingabeFelder).Include(i => i.UIDefinition.KonfiguratorFelder).ToList();
+            else
+                result = list.ToList();
 
-            return Json(list);
+            if (onlyDirty)
+                result = result.Where(i => i.IsDirty).ToList();
+
+            return Json(result);
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [Route("GetAllVariantenNamen")]
-        public async Task<ActionResult<Variante>> GetAllNamen(bool onlyDirty = false)
+        public async Task<ActionResult> GetAllNamen()
         {
-            var list = _context.Varianten.Include(i => i.KonfigSatz.Eintraege).Include(i => i.UIDefinition.EingabeFelder).Include(i => i.UIDefinition.KonfiguratorFelder).Where(i => i.IsDirty == onlyDirty).ToList();
-            return Json(list);
+            List<string> result = _context.Varianten.Select(i => i.Name).ToList();
+
+            return Json(result);
+        }
+
+
+        [HttpGet]
+        [Route("GetVarianteByName")]
+        public async Task<ActionResult> GetVarianteByName(string name, bool includeUI = false)
+        {
+            Variante result;
+            if (includeUI)
+            {
+                result = _context.Varianten.Include(i => i.KonfigSatz.Eintraege)
+                                           .Include(i => i.UIDefinition.EingabeFelder)
+                                           .Include(i => i.UIDefinition.KonfiguratorFelder)
+                                           .FirstOrDefault(i => i.Name == name);
+            }
+            else
+            {
+                result = _context.Varianten.Include(i => i.KonfigSatz.Eintraege).FirstOrDefault(i => i.Name == name);
+            }
+            return Json(result);
         }
 
         [HttpGet("api/Variante/{id:guid}")]
@@ -50,13 +78,14 @@ namespace Gandalan.IDAS.IDASWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Variante>> AddVariante([FromBody] Variante dto)
+        [HttpPut]
+        [Route("AddOrUpdateVariante")]
+        public async Task<ActionResult<Variante>> AddOrUpdateVariante([FromBody] VarianteDTO dto)
         {
-            if (!_context.Varianten.Any(i => i.VarianteGuid == dto.VarianteGuid))
-                _context.Varianten.Add(dto);
+            Variante v = VarianteDTOConverter.CreateOrUpdateFromDTO(_context, dto);
 
             await _context.SaveChangesAsync();
-            return Ok(dto);
+            return Ok(v);
         }
     }
 }

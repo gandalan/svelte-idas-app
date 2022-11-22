@@ -1,5 +1,6 @@
 using Gandalan.IDAS.WebApi.DTO;
 using UIPflege.DB;
+using Microsoft.EntityFrameworkCore;
 
 namespace COnverter.FromDTO
 {
@@ -7,7 +8,7 @@ namespace COnverter.FromDTO
     {
         public static UIDefinition CreateOrUpdateFromDTO(UIPflegeContext db, UIDefinitionDTO dto)
         {
-            UIDefinition uiDefinition = db.UIDefinitionen.FirstOrDefault(
+            UIDefinition uiDefinition = db.UIDefinitionen.Include(i => i.EingabeFelder).Include(i => i.KonfiguratorFelder).FirstOrDefault(
                            u => u.UIDefinitionGuid == dto.UIDefinitionGuid ||
                            (u.UIDefinitionGuid == Guid.Empty && u.BezeichnungKurz == dto.BezeichnungKurz));
 

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace UIPflege.DB
 {
@@ -8,14 +9,17 @@ namespace UIPflege.DB
     {
         public long WerteListeItemId { get; set; }
         public long WerteListeId { get; set; }
+
+        [ForeignKey("WerteListeId")]
+        [JsonIgnore]
         public virtual WerteListe WerteListe { get; set; }
         public Guid WerteListeItemGuid { get; set; }
 
         public int Reihenfolge { get; set; }
-        public string Beschreibung { get; set; }
+        public string? Beschreibung { get; set; }
         public string Kuerzel { get; set; }
-        public string BelegBlattText { get; set; }
-        public string AngebotsText { get; set; }
+        public string? BelegBlattText { get; set; }
+        public string? AngebotsText { get; set; }
 
         public DateTime? GueltigAb { get; set; }
         public DateTime? GueltigBis { get; set; }
