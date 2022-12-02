@@ -23,6 +23,7 @@ namespace Converter.FromDTO
             variante.VarianteGuid = dto.VarianteGuid;
 
             variante.KonfigSatzGuid = dto.KonfigSatzGuid;
+
             if (variante.KonfigSatzGuid != Guid.Empty)
             {
                 variante.KonfigSatz = KonfigSatzDTOConverter.CreateOrUpdateFromDTO(db, dto);
@@ -33,6 +34,9 @@ namespace Converter.FromDTO
             //UIDefintion muss getrennt behandet werden
             if (dto.UIDefinition != null)
                 variante.UIDefinition = UIDefinitionDTOConverter.CreateOrUpdateFromDTO(db, dto.UIDefinition);
+
+            variante.Version = dto.Version;
+            variante.ChangedDate = dto.ChangedDate;
 
             return variante;
         }

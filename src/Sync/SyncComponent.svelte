@@ -1,11 +1,19 @@
 <script>
-    import { BackendFactory } from "../lib/Backend";
-    let backend;
+    import { Backend } from "../stores";
 
-    const promise = BackendFactory.create().then((b) => (backend = b));
+
+
+    async function syncVariantenFromIDAS() {
+        await $Backend.idas.SyncAllWertelistenFromIDAS();
+        console.log("fertig");
+    }
+
+    async function syncWertelistenFromIDAS() {
+        await $Backend.idas.SyncAllWertelistenFromIDAS();
+        console.log("fertig");
+    }
+
+
 </script>
-{#await promise}
-    Lade Daten...
-{:then}
-    <!--<button class="border-2 border-lightgrey rounded-sm ">Reset alle Änderungen</button>-->
-{/await}
+    <button class="border-2 border-lightgrey rounded-sm" on:click={syncVariantenFromIDAS}>Sync All Varianten from IDAS</button>
+    <button class="border-2 border-lightgrey rounded-sm" on:click={syncWertelistenFromIDAS}>Sync Wertelisten from IDAS</button>

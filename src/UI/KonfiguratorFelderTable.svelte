@@ -1,6 +1,8 @@
 <script>
-    export let selectedUIDef;
-    export let dbUIDef;
+    import { Selection } from "../stores";
+
+
+
 </script>
 
 <table class="border-2 mt-4 border-collapse w-full table-fixed">
@@ -20,7 +22,7 @@
         <th class="text-left">GueltigBis</th>
     </tr>
 
-    {#each selectedUIDef.konfiguratorFelder as item}
+    {#each $Selection.SelectedUIDefinition.konfiguratorFelder as item}
         <tr>
             <td class="text-left"><input class="w-full" bind:value={item.reihenfolge} />
             <td class="text-left"><input class="w-full" bind:value={item.eingabeLevel} />

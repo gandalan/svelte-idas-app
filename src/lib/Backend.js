@@ -25,19 +25,21 @@ class Backend {
 
 
 
-    idas = {
+    Idas = {
         async SyncAllVariantenFromIDAS() {
+            console.log("Start Variantenabgleich")
             var varianten = await _idas.varianten.getAll();
             for (let v of varianten) {
                 console.log(v);
-                await _restClient.put(`Variante/AddOrUpdateVariante`, v); 
+                await _restClient.put(`Variante/AddOrUpdateVariante`, v);
             }
         },
         async SyncAllWertelistenFromIDAS() {
-            var werteliste = await _idas.wertelisten.getAll();
+            console.log("Start Wertelistenabgleich")
+            var werteliste = await _idas.wertelisten.getAll(false);
             for (let w of werteliste) {
                 console.log(w);
-                await _restClient.put(`Werteliste/AddOrUpdateWerteliste`, w); 
+                await _restClient.put(`Werteliste/AddOrUpdateWerteliste`, w);
             }
         },
         async SyncVarianteFromIDAS(guid) {
@@ -69,7 +71,7 @@ class Backend {
     }
 
 
-    auth = {
+    Auth = {
         async getUserName() {
             return await _restClient.get(`Auth/GetUserName`);
         },
@@ -99,41 +101,60 @@ class Backend {
         },
     };
 
-    varianten = {
-        async getAll(includeUI = false, onlyDirty = false) {
+    Varianten = {
+        async GetAll(includeUI = false, onlyDirty = false) {
             return await _restClient.get(`Variante/GetAllVarianten?includeUI=${includeUI}&onlyDirty=${onlyDirty}`);
         },
-        async getAllNamen() {
+        async GetAllNamen() {
             return await _restClient.get(`Variante/GetAllVariantenNamen`);
         },
-        async getByName(name, includeUI = false) {
+        async GetByName(name, includeUI = false) {
             return await _restClient.get(`Variante/GetVarianteByName?name=${name}&includeUI=${includeUI}`);
         }
     }
 
-    uidef = {
-        async getAll() {
+    UIDefinition = {
+        async GetAll() {
             return _restClient.get(`UIDefinition/GetAllUIDefinition`);
         },
-        async getAllNamen() {
+        async GetAllNamen() {
             return await _restClient.get(`UIDefinition/GetAllUIDefinitionNamen`);
         },
-        async getByName(name) {
+        async GetByName(name) {
             return await _restClient.get(`UIDefinition/GetUIDefinitionByName?name=` + name);
         },
-        async save(guid, uidef){
-            return await _restClient.put(`UIDefinition/internal/AddOrUpdateUIDefinition?guid=${guid}`, uidef);
+        async Save(uidef) {
+            return await _restClient.put(`UIDefinition/internal/AddOrUpdateUIDefinition`, uidef);
+        },
+        async Create(newUIDefName, existingUIDefName) {
+            let uri = `UIDefinition/internal/CreateUIDefinition?newUIDefName=${newUIDefName}`;
+            if(existingUIDefName) uri += `&vorhandeneUIDefName=${existingUIDefName}`
+            return await _restClient.put(uri);
+        },
+        EingabeFelder: {
+            async Create(uidefguid) {
+                return await _restClient.put(`UIDefinition/internal/CreateUIFeld?uiDefGuid=${uidefguid}`);
+            },
+            async Copy(uiDefName, feldGuid)
+            {
+                return await _restClient.put(`UIDefinition/internal/CopyUIFeld?destUIDefName=${uiDefName}&uiFeldGuid=${feldGuid}`);
+            },
+            async Delete(feldGuid) {
+                
+                return await _restClient.delete(`UIDefinition/internal/DeleteUIFeld?guid=${feldGuid}`);
+            }
         }
+
     }
 
-    wertelisten = {
-        async getAll() {
+    Wertelisten = {
+        async GetAll() {
             return _restClient.get(`Werteliste/GetAllWertelisten`);
         },
-        async getAllNamen() {
+        async GetAllNamen() {
             return await _restClient.get(`Werteliste/GetAllWertelistenNamen`);
         },
-        async getByName(name) {
+        async GetByName(name) {
             return await _restClient.get(`Werteliste/GetWertelisteByName?name=` + name);
         }
     }

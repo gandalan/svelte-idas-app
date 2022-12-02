@@ -3,18 +3,22 @@
   import { Router, Route } from "svelte-routing";
   import Navbar from "./Navbar.svelte";
   import { BackendFactory } from "./lib/Backend";
-    import UIComponent from "./UI/UIComponent.svelte";
-    import KonfigSatzComponent from "./Varianten/KonfigSatzComponent.svelte";
-    import WertelisteComponent from "./Werteliste/WertelisteComponent.svelte";
-    import SyncComponent from "./Sync/SyncComponent.svelte";
+  import UIComponent from "./UI/UIComponent.svelte";
+  import KonfigSatzComponent from "./Varianten/KonfigSatzComponent.svelte";
+  import WertelisteComponent from "./Werteliste/WertelisteComponent.svelte";
+  import SyncComponent from "./Sync/SyncComponent.svelte";
+  import { Backend } from "./stores";
+
 
   async function getIDASApiUrl() {
-    const backend = await BackendFactory.create();
+    $Backend = await BackendFactory.create();
     let url = localStorage.getItem("IDAS_ApiBaseUrl");
     if (!url) {
-      url = await backend.auth.getApiUrl();
+      url = await $Backend.Auth.getApiUrl();
       localStorage.setItem("IDAS_ApiBaseUrl", url);
     }
+
+    
   }
 
   let promise = getIDASApiUrl();

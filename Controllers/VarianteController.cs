@@ -53,7 +53,7 @@ namespace Gandalan.IDAS.IDASWebApp.Controllers
 
         [HttpGet]
         [Route("GetVarianteByName")]
-        public async Task<ActionResult> GetVarianteByName(string name, bool includeUI = false)
+        public async Task<ActionResult<Variante>> GetVarianteByName(string name, bool includeUI = false)
         {
             Variante result;
             if (includeUI)

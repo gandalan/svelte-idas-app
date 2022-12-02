@@ -10,13 +10,17 @@ DotEnv.Load(dotenv);
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<UIPflegeContext>(
            options =>
            {
                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-               options.EnableSensitiveDataLogging(true);
+               options.EnableSensitiveDataLogging(true);               
            });
 
 
@@ -33,7 +37,7 @@ app.UseCors(options =>
 {
     options.AllowAnyMethod().AllowAnyHeader();
     options.SetIsOriginAllowed((host) => true);
-    options.AllowCredentials();
+    options.AllowCredentials();    
 });
 
 app.UseDefaultFiles();
@@ -45,7 +49,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
     endpoints.MapRazorPages();
     endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
-    endpoints.MapFallbackToFile("index.html").AllowAnonymous();
+    endpoints.MapFallbackToFile("index.html").AllowAnonymous();    
 });
 
 app.Run();

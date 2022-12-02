@@ -23,7 +23,7 @@ namespace UIPflege.DB
         public virtual UIDefinition? UIDefinition { get; set; }
         public Guid UIDefinitionGuid { get; set; }
 
-        public int Version { get; set; }
+        public long Version { get; set; }
         public DateTime ChangedDate { get; set; }
 
         public bool IsDirty { get; set; } = false;

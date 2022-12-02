@@ -1,27 +1,23 @@
 <script>
-    import { BackendFactory } from "../lib/Backend";
+     import { Backend, Selection } from "../stores";
     import KonfigSatzTable from "./KonfigSatzTable.svelte";
 
-    let selectedVariante;
     let selectedVariantenName;
-    let backend;
 
     $: {
-        if (backend && selectedVariantenName) setSelectedVariante();
+        if ($Backend && selectedVariantenName) setSelectedVariante();
     }
 
     async function setSelectedVariante() {
-        selectedVariante = await backend.varianten.getByName(
+        $Selection.SelectedVariante = await $Backend.varianten.getByName(
             selectedVariantenName
         );
     }
 
-    const promise = BackendFactory.create()
-        .then((b) => (backend = b))
-        .then((b) => backend.varianten.getAllNamen());
+    const promise = $Backend.varianten.getAllNamen();
 
     async function onclick() {
-        await backend.idas.SyncAllWertelistenFromIDAS();
+        await $Backend.idas.SyncAllWertelistenFromIDAS();
         console.log("fertig");
     }
 </script>
@@ -38,7 +34,7 @@
     <br />
     <br />
 
-    {#if selectedVariante}
-        <KonfigSatzTable selectedKonfigSatz={selectedVariante.konfigSatz} />
+    {#if $Selection.SelectedVariante}
+        <KonfigSatzTable />
     {/if}
 {/await}

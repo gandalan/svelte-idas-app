@@ -1,5 +1,5 @@
 <script>
-export let selectedKonfigSatz;
+import { Selection } from "../stores";
 </script>
 <table class="border-2 mt-4 border-collapse w-full table-fixed">
     <tr>
@@ -9,7 +9,7 @@ export let selectedKonfigSatz;
         <th class="text-left w-16">DatenTyp</th>
     </tr>
 
-    {#each selectedKonfigSatz.eintraege as item}
+    {#each $Selection.SelectedVariante.konfigSatz.eintraege as item}
         <tr>
             <td class="text-left"><input class="w-full" bind:value={item.unterkomponenteName} />
             <td class="text-left"><input class="w-full" bind:value={item.konfigName} >
