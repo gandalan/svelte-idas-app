@@ -1,11 +1,8 @@
 <script>
-    import { IDASFactory } from '@gandalan/weblibs';
+    import { idasBackend } from "../stores";
 
     const servername = localStorage.getItem("IDAS_ApiBaseUrl");
-    const promise = IDASFactory.create()
-    .then(idas => {
-        return idas.mandanten.get(idas.mandantGuid);
-    });
+    const promise = $idasBackend.mandanten.get($idasBackend.mandantGuid);
 </script>
 
 {#await promise}

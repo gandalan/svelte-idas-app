@@ -5,10 +5,7 @@
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach",
-            "processName": "idas-app.exe",
-            "presentation": {
-                "hidden": true
-            }
+            "processName": "idas-app.exe"
         },
         {
             "type": "msedge",
@@ -21,10 +18,7 @@
             "presentation": {
                 "hidden": true
             },
-            "webRoot": "${workspaceFolder}/src",
-            "pathMapping": {
-                "/": "${workspaceFolder}/src"
-            }
+            "webRoot": "${workspaceFolder}"
         },
         {
             "type": "msedge",
@@ -38,15 +32,13 @@
             "presentation": {
                 "hidden": true
             },
-            "webRoot": "${workspaceFolder}/src",
-            "pathMapping": {
-                "/": "${workspaceFolder}/src"
-            }
+            "webRoot": "${workspaceFolder}"
         },
         {
             "type": "vscode-edge-devtools.debug",
             "name": "Open Edge DevTools",
             "request": "attach",
+            "webRoot": "${workspaceFolder}",
             "url": "http://localhost:5000", // Provide your project's url to finish configuring
             "presentation": {
                 "hidden": true

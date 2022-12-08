@@ -3,6 +3,13 @@
   import Counter from './lib/Counter.svelte';
   import IdasStatus from './lib/IDASStatus.svelte';
   import { Router, Route } from 'svelte-routing';
+  import { idasBackend } from "./stores";
+  import { IDASFactory } from '@gandalan/weblibs';
+
+  export let settings;
+
+  // You can create an IDAS Client:
+  $idasBackend = IDASFactory(settings);
 </script>
 
 <main>

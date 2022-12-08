@@ -3,12 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "start dotnet watch && vite --force --host",
+    "dev": "start dotnet watch && vite",
     "build": "vite build && dotnet build",
     "preview": "vite build && start dotnet run"
   },
   "dependencies": {
-    "@gandalan/weblibs": "^1.0.1",
+    "@gandalan/weblibs": "^1.0.22",
     "svelte-routing": "^1.6.0"
   },
   "devDependencies": {
