@@ -1,1 +1,0 @@
-this file is available as /staticfile.txt in dev an prod builds
