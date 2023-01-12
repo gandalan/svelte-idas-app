@@ -1,7 +1,7 @@
 <script>
     import { idasBackend } from "../stores";
 
-    const servername = localStorage.getItem("IDAS_ApiBaseUrl");
+    const servername = $idasBackend.settings.apiBaseurl;
     const promise = $idasBackend.mandanten.get($idasBackend.mandantGuid);
 </script>
 
