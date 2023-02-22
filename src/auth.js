@@ -16,6 +16,13 @@ export async function initIDAS(apptoken) {
     if (urlParams.has("t")) { // it is authToken
         localStorage.setItem("IDAS_AuthJwtRefreshToken", urlParams.get("t"));
     }
+    try
+    {
+        if (window.chrome?.webview?.hostObjects?.sync?.idasJwtToken)
+        {
+            jwtTokenFromUrl = JSON.parse(window.chrome?.webview?.hostObjects?.sync?.idasJwtToken);
+        }
+    } catch {}
 
     let settings = {
         appToken: localStorage.getItem("IDAS_AppToken"),
