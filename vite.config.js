@@ -6,13 +6,14 @@ export default defineConfig({
     plugins: [svelte()],
     build: {
         outDir: "../wwwroot",
-        emptyOutDir: true
+        emptyOutDir: true,
+        target: "esnext"
     },
     server: {
         port: 5000,
         proxy: {
           '/api': {
-                target : 'https://localhost:7207', 
+                target : 'https://localhost:7207',
                 secure: false
             }
         }
