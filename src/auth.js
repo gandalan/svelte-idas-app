@@ -1,4 +1,4 @@
-import { setup, jwtTokenInvalid, jwtAuthenticateOnBackend } from '@gandalan/weblibs/api/authUtils';
+import { setup, isInvalid, redirectToLogin } from '@gandalan/weblibs/api/authUtils';
 
 export async function initIDAS(apptoken) {
     let jwtTokenFromUrl = "";
@@ -37,12 +37,12 @@ export async function initIDAS(apptoken) {
 
     try {
         await setup(settings);
-        if (jwtTokenInvalid(settings))
-            jwtAuthenticateOnBackend(settings, "/");
+        if (isInvalid(settings))
+            redirectToLogin(settings, "/");
     }
     catch
     {
-        jwtAuthenticateOnBackend(settings, "/");
+        redirectToLogin(settings, "/");
     }
     return settings;
 }
