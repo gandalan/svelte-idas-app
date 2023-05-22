@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  check-weblibs:
+  check-build:
     runs-on: ubuntu-latest
 
     steps:
