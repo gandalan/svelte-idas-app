@@ -1,10 +1,10 @@
 <script>
-  import logo from './assets/svelte.png';
-  import Counter from './lib/Counter.svelte';
-  import IdasStatus from './lib/IDASStatus.svelte';
-  import { Router, Route } from 'svelte-routing';
+  import logo from "./assets/svelte.png";
+  import Counter from "./lib/Counter.svelte";
+  import IdasStatus from "./lib/IDASStatus.svelte";
+  import { Router, Route } from "svelte-routing";
   import { idasBackend } from "./stores";
-  import { IDASFactory } from '@gandalan/weblibs';
+  import { IDASFactory } from "@gandalan/weblibs";
 
   export let settings;
 

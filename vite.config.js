@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
+import { defineConfig } from "vite"
+import { svelte } from "@sveltejs/vite-plugin-svelte"
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,21 +10,21 @@ export default defineConfig({
         target: "esnext",
         rollupOptions: {
             output: {
-                entryFileNames: '[name].js',
-                assetFileNames: '[name].[ext]',
+                entryFileNames: "[name].js",
+                assetFileNames: "[name].[ext]",
                 chunkFileNames: "[name].js",
-                manualChunks: undefined
-            }
-        }
+                manualChunks: undefined,
+            },
+        },
     },
     server: {
         port: 5000,
         proxy: {
-          '/api': {
-                target : 'https://localhost:7207',
-                secure: false
-            }
-        }
+          "/api": {
+                target: "https://localhost:7207",
+                secure: false,
+            },
+        },
     },
-    root: "src"
+    root: "src",
 })
