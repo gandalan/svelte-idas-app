@@ -7,7 +7,15 @@ export default defineConfig({
     build: {
         outDir: "../wwwroot",
         emptyOutDir: true,
-        target: "esnext"
+        target: "esnext",
+        rollupOptions: {
+            output: {
+                entryFileNames: '[name].js',
+                assetFileNames: '[name].[ext]',
+                chunkFileNames: "[name].js",
+                manualChunks: undefined
+            }
+        }
     },
     server: {
         port: 5000,
