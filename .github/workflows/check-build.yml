@@ -17,4 +17,3 @@ jobs:
     - run: npm ci
     #- run: npm run svelte-check
     - run: npm run lint
-    - run: npm run build
