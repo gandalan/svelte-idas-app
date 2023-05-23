@@ -6,7 +6,7 @@
     "dev": "start dotnet watch && vite",
     "build": "vite build && dotnet build",
     "preview": "vite build && start dotnet run",
-	"svelte-check": "svelte-check",
+    "svelte-check": "svelte-check",
     "svelte-check:watch": "svelte-check --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
@@ -19,7 +19,7 @@
     "@babel/eslint-parser": "^7.21.8",
     "@sveltejs/vite-plugin-svelte": "^1.1.0",
     "autoprefixer": "^10.4.14",
-	"eslint": "^8.41.0",
+    "eslint": "^8.41.0",
     "eslint-plugin-svelte3": "^4.0.0",
     "postcss": "^8.4.23",
     "svelte": "^3.59.1",
