@@ -30,4 +30,5 @@ obj
 # local development env files - NEVER check in!!
 .env
 
-/wwwroot
+# Uncomment next line if you want to ignore build files
+#/wwwroot

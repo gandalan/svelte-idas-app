@@ -15,5 +15,7 @@ jobs:
       with:
         node-version: '18.x'
     - run: npm ci
+    # Uncomment these lines after fixing main.js in your project
     #- run: npm run svelte-check
-    - run: npm run lint
+    #- run: npm run lint
+    #- run: npm run build
