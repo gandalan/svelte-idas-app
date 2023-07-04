@@ -5,7 +5,7 @@ namespace sveltedotnetappvite.Controllers
     [ApiController]
     [Route("[controller]")]
     public class CounterController : Controller
-    {        
+    {
         private static int _count = 0;
 
         [HttpGet("/api/counter")]

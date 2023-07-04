@@ -7,7 +7,7 @@ export default defineConfig({
     build: {
         outDir: "../wwwroot",
         emptyOutDir: true,
-        target: "esnext",
+        target: "ESNext",
         rollupOptions: {
             output: {
                 entryFileNames: "[name].js",

@@ -1,11 +1,11 @@
 # Development Template for IDAS micro apps
 
-**Goal**: this template enables developers to quickly set up a web application with the following 
+**Goal**: this template enables developers to quickly set up a web application with the following
 features included:
 
 * Authentication against the IDAS backend (providing a JWT token)
 * Sample Svelte frontend code
-* App-local .NET6 backend 
+* App-local .NET 7 backend
 
 ## Configuration
 
@@ -15,4 +15,3 @@ features included:
 ## Deployment
 
 The app can be deployed to Azure App Services as it is (use the Azure VSCode extension!), or dockerized using the included sample Dockerfile.
-

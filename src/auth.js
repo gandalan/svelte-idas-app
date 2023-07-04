@@ -1,7 +1,15 @@
 import { setup, isInvalid, redirectToLogin } from "@gandalan/weblibs/api/authUtils";
+import validator from "validator";
 
 export async function initIDAS(apptoken)
 {
+    if (!validator.isUUID(apptoken))
+    {
+        // eslint-disable-next-line no-console
+        console.error("AppToken is not valid GUID")
+        return null;
+    }
+
     let jwtTokenFromUrl = "";
     localStorage.setItem("IDAS_AppToken", apptoken);
     let urlParams = new URLSearchParams(location.search);
