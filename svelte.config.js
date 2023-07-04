@@ -1,7 +1,7 @@
-const sveltePreprocess = require("svelte-preprocess");
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte"
 
-module.exports = {
-    preprocess: sveltePreprocess({
-        sourceMap: true,
-      }),
-};
+export default {
+  // Consult https://svelte.dev/docs#compile-time-svelte-preprocess
+  // for more information about preprocessors
+  preprocess: vitePreprocess(),
+}
