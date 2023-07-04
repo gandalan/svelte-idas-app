@@ -5,7 +5,7 @@ features included:
 
 * Authentication against the IDAS backend (providing a JWT token)
 * Sample Svelte frontend code
-* App-local .NET6 backend
+* App-local .NET 7 backend
 
 ## Configuration
 
