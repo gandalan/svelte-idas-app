@@ -15,7 +15,7 @@
   "dependencies": {
     "@gandalan/weblibs": "^1.1.0",
     "svelte-routing": "^1.11.0",
-    "validator": "^13.9.0"
+    "validator": "^13.11.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.6",
