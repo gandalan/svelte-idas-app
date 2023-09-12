@@ -13,7 +13,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@gandalan/weblibs": "^1.1.0",
+    "@gandalan/weblibs": "^1.1.2",
     "svelte-routing": "^1.11.0",
     "validator": "^13.11.0"
   },
