@@ -1,8 +1,6 @@
-using Microsoft.Extensions.FileProviders;
-
 var root = Directory.GetCurrentDirectory();
-var dotenv = Path.Combine(root, ".env");
-DotEnv.Load(dotenv);
+var dotEnv = Path.Combine(root, ".env");
+DotEnv.Load(dotEnv);
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
@@ -10,7 +8,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
-
 
 if (app.Environment.IsDevelopment())
 {
@@ -31,7 +28,7 @@ app.UseRouting();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    endpoints.MapRazorPages();                
+    endpoints.MapRazorPages();
     endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
     endpoints.MapFallbackToFile("index.html").AllowAnonymous();
 });
