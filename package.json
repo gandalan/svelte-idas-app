@@ -10,6 +10,7 @@
     "svelte-check": "svelte-check",
     "svelte-check:watch": "svelte-check --watch",
     "lint": "eslint .",
+    "lint:prod": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
