@@ -14,20 +14,20 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@gandalan/weblibs": "^1.1.5",
-    "svelte-routing": "^2.6.0",
+    "@gandalan/weblibs": "^1.1.16",
+    "svelte-routing": "^2.7.0",
     "validator": "^13.11.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.3",
     "@sveltejs/vite-plugin-svelte": "^2.5.2",
     "autoprefixer": "^10.4.16",
-    "eslint": "^8.53.0",
-    "eslint-plugin-svelte": "^2.35.0",
+    "eslint": "^8.54.0",
+    "eslint-plugin-svelte": "^2.35.1",
     "postcss": "^8.4.31",
-    "svelte": "^4.2.3",
-    "svelte-check": "^3.6.0",
-    "svelte-preprocess": "^5.1.0",
+    "svelte": "^4.2.7",
+    "svelte-check": "^3.6.1",
+    "svelte-preprocess": "^5.1.1",
     "tailwindcss": "^3.3.5",
     "vite": "^4.5.0"
   }

@@ -5,10 +5,10 @@ import { initIDAS } from "./auth";
 const settings = await initIDAS(<INSERT YOUR AUTH TOKEN HERE>);
 
 const app = new App({
-  target: document.getElementById("app"),
-  props: {
-    settings,
-  },
+    target: document.getElementById("app"),
+    props: {
+        settings,
+    },
 })
 
 export default app
