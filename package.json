@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "start dotnet watch && vite",
+    "dev:open": "start dotnet watch && vite --open",
     "build": "vite build && dotnet build",
     "preview": "vite build && start dotnet run",
     "svelte-check": "svelte-check",
@@ -14,7 +15,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@gandalan/weblibs": "^1.1.20",
+    "@gandalan/weblibs": "^1.1.21",
     "svelte-routing": "^2.11.0",
     "validator": "^13.11.0"
   },

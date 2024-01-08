@@ -1,14 +1,15 @@
+import { initIDAS } from "@gandalan/weblibs";
 import App from "./App.svelte";
 import "./index.css";
-import { initIDAS } from "./auth";
 
-const settings = await initIDAS(<INSERT YOUR AUTH TOKEN HERE>);
+let app;
 
-const app = new App({
-    target: document.getElementById("app"),
-    props: {
-        settings,
-    },
+initIDAS(<INSERT YOUR AUTH TOKEN HERE>).then(settings =>
+{
+    app = new App({
+        target: document.getElementById("app"),
+        props: { settings },
+    });
 })
 
 export default app
