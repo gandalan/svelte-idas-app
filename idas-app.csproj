@@ -3,7 +3,6 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>Gandalan.IDAS.IDASWebApp</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
