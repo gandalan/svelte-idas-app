@@ -1,20 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace sveltedotnetappvite.Controllers
-{
-    [ApiController]
-    [Route("[controller]")]
-    public class CounterController : Controller
-    {
-        private static int _count = 0;
+namespace SvelteDotnetAppVite.Controllers;
 
-        [HttpGet("/api/counter")]
-        public IActionResult Get()
+[ApiController]
+[Route("[controller]")]
+public class CounterController : Controller
+{
+    private static int _count;
+
+    [HttpGet("/api/counter")]
+    public IActionResult Get()
+    {
+        _count++;
+        if (_count % 3 == 0)
         {
-            _count++;
-            if (_count % 3 == 0)
-                return Json("Hoppla");
-            return Json(_count);
+            return Json("Hoppla");
         }
+
+        return Json(_count);
     }
 }
