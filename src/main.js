@@ -1,15 +1,37 @@
-import { initIDAS } from "@gandalan/weblibs";
+import { authBuilder, fetchEnv, idasApi } from "@gandalan/weblibs";
+import { localApi } from "@gandalan/weblibs/api/fluentApi";
 import App from "./App.svelte";
 import "./index.css";
 
-let app;
+const appToken = "<INSERT YOUR APP TOKEN HERE>";
+const env = "dev";
 
-initIDAS(<INSERT YOUR AUTH TOKEN HERE>).then(settings =>
-{
-    app = new App({
-        target: document.getElementById("app"),
-        props: { settings },
-    });
-})
+// needed for post authentication redirect
+const urlParams = new URLSearchParams(location.search);
+if (urlParams.has("t")) {
+    localStorage.setItem("idas-refresh-token", urlParams.get("t") || "");
+    urlParams.delete("t");
+    location.search = urlParams.toString(); // this will cause a page reload!
+}
 
-export default app
+const refreshToken = localStorage.getItem("idas-refresh-token");
+const envConfig = await fetchEnv("dev");
+await authBuilder()
+    .useAppToken(appToken)
+    .useRefreshToken(refreshToken)
+    .useBaseUrl(envConfig.idas)
+    .init();
+
+const idas = idasApi(appToken)
+    .useBaseUrl(envConfig.idas)
+    .useEnvironment(env);
+
+const local = localApi()
+    .useEnvironment(env);
+
+const app = new App({
+    target: document.getElementById("app"),
+    props: { idas, local },
+});
+
+export default app;

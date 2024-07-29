@@ -1,22 +1,16 @@
 <script>
-    const awaiter = fetch("/api/counter")
-        .then(res => res.json())
-        .then(data =>
-        {
-            // eslint-disable-next-line no-console
-            console.log(data)
-            return data
-        })
-        .catch(err =>
-        {
-            // eslint-disable-next-line no-console
-            console.error(err)
-            return err
-        });
+  import { localBackend } from "../stores";
+
+  const counterPromise = $localBackend.get("/counter");
 </script>
 
-{#await awaiter}
-    <progress />
+{#await counterPromise}
+  <progress />
 {:then a}
-    <p class="mb-12">Sub-API says: {JSON.stringify(a)}</p>
+  <p class="mb-12">Sub-API says: {JSON.stringify(a)}</p>
+{:catch error}
+  <p>
+    Fehler beim Laden der Counter-Infos:<br />
+    {error.message}
+  </p>
 {/await}
