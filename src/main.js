@@ -15,7 +15,8 @@ if (urlParams.has("t")) {
 }
 
 const refreshToken = localStorage.getItem("idas-refresh-token");
-const envConfig = await fetchEnv("dev");
+const envConfig = await fetchEnv(env);
+
 await authBuilder()
     .useAppToken(appToken)
     .useRefreshToken(refreshToken)
@@ -23,11 +24,9 @@ await authBuilder()
     .init();
 
 const idas = idasApi(appToken)
-    .useBaseUrl(envConfig.idas)
-    .useEnvironment(env);
+    .useEnvironment(envConfig);
 
-const local = localApi()
-    .useEnvironment(env);
+const local = localApi();
 
 const app = new App({
     target: document.getElementById("app"),

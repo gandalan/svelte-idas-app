@@ -7,7 +7,7 @@
     "dev": "start dotnet watch && vite",
     "dev:open": "start dotnet watch && vite --open",
     "build": "vite build && dotnet build",
-    "preview": "vite build && start dotnet run",
+    "preview": "dotnet run",
     "svelte-check": "svelte-check",
     "svelte-check:watch": "svelte-check --watch",
     "lint": "eslint .",
@@ -15,7 +15,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@gandalan/weblibs": "^1.1.67",
+    "@gandalan/weblibs": "^1.1.69",
     "svelte-routing": "^2.13.0",
     "validator": "^13.12.0"
   },

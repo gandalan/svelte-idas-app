@@ -29,8 +29,6 @@ app.UseCors(options =>
 app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseRouting();
-
-app.MapControllers();
 app.MapRazorPages();
 app.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
 app.MapFallbackToFile("index.html").AllowAnonymous();
