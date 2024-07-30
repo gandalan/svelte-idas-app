@@ -9,10 +9,10 @@ WORKDIR /app
 # Copy everything
 COPY . ./
 # Restore as distinct layers
-RUN dotnet restore
-RUN npm install && npm run build
+RUN cd backend && dotnet restore
+RUN cd frontend && npm install && npm run build
 # Build and publish a release
-RUN dotnet publish -c Release -o out
+RUN cd backend && dotnet publish -c Release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 as final
@@ -33,7 +33,7 @@ VOLUME [ "/data" ]
 
 USER app
 WORKDIR /app
-COPY --from=build-env /app/out .
+COPY --from=build-env /app/backend/out .
 
 HEALTHCHECK CMD curl --fail http://localhost:8080/health
 ENTRYPOINT ["dotnet", "idas-app.dll"]
