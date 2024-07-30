@@ -1,8 +1,9 @@
 <script>
   import { idasBackend } from "../stores";
 
+  // eslint-disable-next-line no-undef
   let mandantGuid = globalThis.idasTokens.userInfo.mandantGuid;
-  const promise = $idasBackend.get("Mandanten/" + mandantGuid);
+  const promise = $idasBackend.get(`Mandanten/${mandantGuid}`);
 </script>
 
 {#await promise}

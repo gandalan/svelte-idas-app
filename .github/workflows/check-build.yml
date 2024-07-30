@@ -14,7 +14,7 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - run: npm ci
+    - run: cd frontend && npm ci
     # Uncomment these lines after fixing main.js in your project
     #- run: npm run svelte-check
     #- run: npm run lint:prod
