@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using SvelteDotnetAppVite.Data;
 
 var root = Directory.GetCurrentDirectory();
 var dotEnv = Path.Combine(root, ".env");
@@ -28,14 +29,12 @@ app.UseCors(options =>
 app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseRouting();
+app.MapRazorPages();
+app.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
+app.MapFallbackToFile("index.html").AllowAnonymous();
+app.MapHealthChecks("/health").AllowAnonymous();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-    endpoints.MapRazorPages();
-    endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
-    endpoints.MapFallbackToFile("index.html").AllowAnonymous();
-    endpoints.MapHealthChecks("/health").AllowAnonymous();
-});
+// Data
+app.MapCounterEndpoint();
 
 app.Run();
