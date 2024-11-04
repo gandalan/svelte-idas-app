@@ -37,4 +37,4 @@ obj/
 .env
 
 # Uncomment next line if you want to ignore build files
-#/wwwroot
+/backend/wwwroot
