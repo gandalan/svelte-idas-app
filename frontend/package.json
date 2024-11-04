@@ -15,21 +15,21 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@gandalan/weblibs": "^1.1.74",
+    "@gandalan/weblibs": "^1.1.80",
     "svelte-routing": "^2.13.0",
     "validator": "^13.12.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.25.1",
+    "@babel/eslint-parser": "^7.25.9",
     "@sveltejs/vite-plugin-svelte": "^3.1.2",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",
-    "eslint-plugin-svelte": "^2.44.0",
+    "eslint-plugin-svelte": "^2.46.0",
     "postcss": "^8.4.47",
     "svelte": "^4.2.19",
     "svelte-check": "^3.8.6",
-    "svelte-preprocess": "^6.0.2",
-    "tailwindcss": "^3.4.13",
-    "vite": "^5.4.7"
+    "svelte-preprocess": "^6.0.3",
+    "tailwindcss": "^3.4.14",
+    "vite": "^5.4.10"
   }
 }
