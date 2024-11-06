@@ -15,7 +15,7 @@ RUN cd frontend && npm install && npm run build
 RUN cd backend && dotnet publish -c Release -o out
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 as final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 
 # Install cURL for HEALTHCHECK
 RUN apt-get update \
