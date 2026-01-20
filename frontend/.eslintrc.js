@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     root: true,
     extends: [
         // add more generic rule sets here, such as:

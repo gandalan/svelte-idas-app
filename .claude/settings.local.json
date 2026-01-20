@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Bash(npm view:*)",
+      "Bash(dotnet --version:*)",
+      "Bash(cd:*)",
+      "Bash(dotnet --list-sdks:*)",
+      "Bash(wget:*)",
+      "Bash(chmod:*)",
+      "Bash(/tmp/dotnet-install.sh:*)",
+      "Bash(export PATH=\"$HOME/.dotnet:$PATH\")",
+      "Bash(dotnet clean:*)",
+      "Bash(dotnet restore:*)",
+      "Bash(dotnet build:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(cd /mnt/d/p/svelte-idas-app/frontend && npm install:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run dev:frontend:*)",
+      "Bash(npm run build:*)",
+      "Bash(dotnet run:*)",
+      "Bash(curl:*)",
+      "WebFetch(domain:svelte.dev)",
+      "Bash(npx sv:*)",
+      "Bash(claude mcp add -t stdio -s project svelte npx -y @sveltejs/mcp)",
+      "Bash(claude mcp add -t stdio -s project svelte npx -- -y @sveltejs/mcp)",
+      "Bash(npm run dev:open:*)"
+    ]
+  }
+}

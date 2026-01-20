@@ -1,22 +1,21 @@
 <script>
-  import { Route, Router } from "svelte-routing";
+  import { Router } from "svelte-mini-router";
   import logo from "./assets/svelte.png";
-  import Counter from "./lib/Counter.svelte";
-  import IdasStatus from "./lib/IDASStatus.svelte";
+  import { routerConf } from "./routerConf.js";
   import { idasBackend, localBackend } from "./stores";
 
-  export let idas;
-  export let local;
+  // Svelte 5: export let → $props()
+  let { idas, local } = $props();
 
-  $idasBackend = idas;
-  $localBackend = local;
+  // Svelte 5: Use $effect for reactive assignments
+  $effect(() => {
+    $idasBackend = idas;
+    $localBackend = local;
+  });
 </script>
 
 <main>
   <img src={logo} alt="Svelte Logo" class="w-16" />
 
-  <Router>
-    <Route path="/" component={IdasStatus} />
-    <Route path="/counter" component={Counter} />
-  </Router>
+  <Router {routerConf} />
 </main>

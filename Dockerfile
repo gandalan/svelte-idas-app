@@ -1,9 +1,11 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build-env
 
 RUN apt-get update \
     && apt-get install -y libpng-dev libjpeg-dev curl libxi6 build-essential libgl1-mesa-glx \
-    && curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
-    && apt-get install -y nodejs
+    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
 WORKDIR /app
 # Copy everything
@@ -15,7 +17,7 @@ RUN cd frontend && npm install && npm run build
 RUN cd backend && dotnet publish -c Release -o out
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 
 # Install cURL for HEALTHCHECK
 RUN apt-get update \
@@ -35,5 +37,5 @@ USER app
 WORKDIR /app
 COPY --from=build-env /app/backend/out .
 
-HEALTHCHECK CMD curl --fail http://localhost:8080/health
+HEALTHCHECK CMD curl --fail http://localhost:8080/health || exit 1
 ENTRYPOINT ["dotnet", "idas-app.dll"]

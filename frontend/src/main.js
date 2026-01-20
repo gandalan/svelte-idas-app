@@ -1,9 +1,10 @@
+import { mount } from "svelte";
 import { authBuilder, fetchEnv, idasApi } from "@gandalan/weblibs";
 import { localApi } from "@gandalan/weblibs/api/fluentApi";
 import App from "./App.svelte";
 import "./index.css";
 
-const appToken = "<INSERT YOUR APP TOKEN HERE>";
+const appToken = "<YOUR_APP_TOKEN>";
 const env = "dev";
 
 // needed for post authentication redirect
@@ -15,20 +16,34 @@ if (urlParams.has("t")) {
 }
 
 const refreshToken = localStorage.getItem("idas-refresh-token");
-const envConfig = await fetchEnv(env);
 
-await authBuilder()
-    .useAppToken(appToken)
-    .useRefreshToken(refreshToken)
-    .useBaseUrl(envConfig.idas)
-    .init();
+let idas = null;
+let envConfig = null;
 
-const idas = idasApi(appToken)
-    .useEnvironment(envConfig);
+// Only initialize IDAS if a valid app token is provided
+if (appToken !== "<INSERT YOUR APP TOKEN HERE>") {
+    try {
+        envConfig = await fetchEnv(env);
+
+        const auth = authBuilder();
+        if (auth) {
+            await auth
+                .useAppToken(appToken)
+                .useRefreshToken(refreshToken)
+                .useBaseUrl(envConfig.idas)
+                .init();
+        }
+
+        idas = idasApi(appToken)
+            .useEnvironment(envConfig);
+    } catch (error) {
+        console.error("Failed to initialize IDAS authentication:", error);
+    }
+}
 
 const local = localApi();
 
-const app = new App({
+const app = mount(App, {
     target: document.getElementById("app"),
     props: { idas, local },
 });

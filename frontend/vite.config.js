@@ -19,6 +19,9 @@ export default defineConfig({
     },
     server: {
         port: 5000,
+        watch: {
+            usePolling: true,
+        },
         proxy: {
             "/api": {
                 target: "https://localhost:7207",
