@@ -10,9 +10,13 @@ Template for web applications with IDAS authentication, Svelte 5 frontend, and .
 
 ## Configuration
 
-1. Add your app token GUID in `frontend/src/main.js` (line 7)
-2. Store secrets in `.env` file (sample provided) - never in `appsettings.json`
-3. Rename `idas-app.csproj` and update all references if needed
+1. **Request an App Token**: You need a unique App Token from Gandalan to authenticate against IDAS. Please request one by sending an email to [dev-support@gandalan.de](mailto:dev-support@gandalan.de).
+2. **Configure App Token**: Add your received app token GUID in [frontend/src/main.js](frontend/src/main.js#L7).
+3. **Setup Environment Variables**:
+   - Copy [backend/.env.sample](backend/.env.sample) to `backend/.env`.
+   - Update the values in `backend/.env` as needed.
+   - **Crucial**: Store secrets only in the `.env` file - never in `appsettings.json`.
+4. **Project Naming**: Rename [backend/idas-app.csproj](backend/idas-app.csproj) and update all references if needed.
 
 ## Development
 
