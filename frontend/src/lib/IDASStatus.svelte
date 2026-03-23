@@ -1,9 +1,11 @@
 <script>
   import { idasBackend } from "../stores";
 
-  // eslint-disable-next-line no-undef
-  let mandantGuid = globalThis.idasTokens.userInfo.mandantGuid;
-  const promise = $idasBackend.get(`Mandanten/${mandantGuid}`);
+  const mandantGuid = /** @type {{ mandantGuid?: string } | undefined} */ ($idasBackend?.userInfo)?.mandantGuid;
+  const idas = /** @type {import("@gandalan/weblibs").IDASFluentApi | null} */ ($idasBackend);
+  const promise = mandantGuid
+    ? /** @type {Promise<import("@gandalan/weblibs").MandantDTO>} */ (idas.get(`Mandanten/${mandantGuid}`))
+    : Promise.reject(new Error("IDAS authentication is not configured."));
 </script>
 
 {#await promise}

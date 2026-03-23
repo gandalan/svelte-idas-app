@@ -4,13 +4,18 @@
   import { routerConf } from "./routerConf.js";
   import { idasBackend, localBackend } from "./stores";
 
-  // Svelte 5: export let → $props()
-  let { idas, local } = $props();
+  /**
+   * @typedef {import("@gandalan/weblibs").IDASFluentApi} IDASFluentApi
+   * @typedef {import("@gandalan/weblibs").FluentApi} FluentApi
+   */
+  
+  /** @type({ idas: IDASFluentApi, api: FluentApi }) */
+  let { idas, api } = $props();
 
   // Svelte 5: Use $effect for reactive assignments
   $effect(() => {
     $idasBackend = idas;
-    $localBackend = local;
+    $localBackend = api;
   });
 </script>
 

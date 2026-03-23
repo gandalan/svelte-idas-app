@@ -1,51 +1,33 @@
 import { mount } from "svelte";
-import { authBuilder, fetchEnv, idasApi } from "@gandalan/weblibs";
-import { localApi } from "@gandalan/weblibs/api/fluentApi";
+import { fetchEnvConfig, fluentApi, fluentIdasAuthManager, idasFluentApi } from "@gandalan/weblibs";
 import App from "./App.svelte";
 import "./index.css";
 
+// Replace with your actual app token - assigned by Gandalan
 const appToken = "<YOUR_APP_TOKEN>";
+// Environment can be 'dev', 'stg', or 'prod' - determines which IDAS environment to connect to
 const env = "dev";
+// Service name for logging and monitoring in IDAS - should be unique to your app
+const serviceName = "svelte-idas-app";
 
-// needed for post authentication redirect
-const urlParams = new URLSearchParams(location.search);
-if (urlParams.has("t")) {
-    localStorage.setItem("idas-refresh-token", urlParams.get("t") || "");
-    urlParams.delete("t");
-    location.search = urlParams.toString(); // this will cause a page reload!
-}
-
-const refreshToken = localStorage.getItem("idas-refresh-token");
-
-let idas = null;
-let envConfig = null;
-
-// Only initialize IDAS if a valid app token is provided
-if (appToken !== "<INSERT YOUR APP TOKEN HERE>") {
-    try {
-        envConfig = await fetchEnv(env);
-
-        const auth = authBuilder();
-        if (auth) {
-            await auth
-                .useAppToken(appToken)
-                .useRefreshToken(refreshToken)
-                .useBaseUrl(envConfig.idas)
-                .init();
-        }
-
-        idas = idasApi(appToken)
-            .useEnvironment(envConfig);
-    } catch (error) {
-        console.error("Failed to initialize IDAS authentication:", error);
+async function setupAuthAndApi() 
+{
+    const envConfig = await fetchEnvConfig(env);
+    const authManager = await fluentIdasAuthManager(appToken, envConfig.idas).init();
+    if (!authManager) {
+        throw new Error("Failed to initialize auth manager");
     }
+
+    const idas = idasFluentApi(envConfig.idas, authManager, serviceName);
+    const api = fluentApi("/api", authManager, serviceName);    
+    return { idas, api };
 }
 
-const local = localApi();
+const { idas, api } = await setupAuthAndApi();
 
 const app = mount(App, {
     target: document.getElementById("app"),
-    props: { idas, local },
+    props: { idas, api },
 });
 
 export default app;

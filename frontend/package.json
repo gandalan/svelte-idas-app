@@ -17,23 +17,27 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@gandalan/weblibs": "1.2.1",
+    "@gandalan/weblibs": "1.5.31",
     "svelte-mini-router": "^1.0.4",
     "validator": "^13.15.26"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.26.8",
-    "@eslint/js": "^9.39.2",
-    "@sveltejs/vite-plugin-svelte": "^6.2.4",
-    "autoprefixer": "^10.4.23",
+    "@eslint/js": "^10.0.1",
+    "@sveltejs/vite-plugin-svelte": "^7.0.0",
+     "@tailwindcss/postcss": "^4.1.13",
+    "autoprefixer": "^10.4.27",
     "concurrently": "^9.2.1",
-    "eslint": "^9.39.2",
-    "eslint-plugin-svelte": "^2.46.1",
-    "postcss": "^8.5.6",
-    "svelte": "^5.47.1",
-    "svelte-check": "^4.3.5",
-    "svelte-eslint-parser": "^1.4.1",
-    "tailwindcss": "^3.4.17",
-    "vite": "^7.3.1"
+    "eslint": "^10.1.0",
+    "eslint-plugin-svelte": "^3.16.0",
+    "postcss": "^8.5.8",
+    "svelte": "^5.54.1",
+    "svelte-check": "^4.4.5",
+    "svelte-eslint-parser": "^1.6.0",
+    "tailwindcss": "^4.2.2",
+    "vite": "^8.0.1"
+   },
+   "overrides": {
+     "axios": "^1.13.6",
+     "flatted": "^3.4.2"
   }
 }
