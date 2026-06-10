@@ -17,16 +17,16 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@gandalan/weblibs": "1.5.31",
+    "@gandalan/weblibs": "^2.0.1",
     "svelte-mini-router": "^1.0.4",
     "validator": "^13.15.26"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@sveltejs/vite-plugin-svelte": "^7.0.0",
-     "@tailwindcss/postcss": "^4.1.13",
+    "@tailwindcss/postcss": "^4.1.13",
     "autoprefixer": "^10.4.27",
-    "concurrently": "^9.2.1",
+    "concurrently": "^10.0.3",
     "eslint": "^10.1.0",
     "eslint-plugin-svelte": "^3.16.0",
     "postcss": "^8.5.8",
@@ -35,9 +35,9 @@
     "svelte-eslint-parser": "^1.6.0",
     "tailwindcss": "^4.2.2",
     "vite": "^8.0.1"
-   },
-   "overrides": {
-     "axios": "^1.13.6",
-     "flatted": "^3.4.2"
+  },
+  "overrides": {
+    "axios": "^1.13.6",
+    "flatted": "^3.4.2"
   }
 }

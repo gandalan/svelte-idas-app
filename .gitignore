@@ -38,3 +38,4 @@ obj/
 
 # Uncomment next line if you want to ignore build files
 /backend/wwwroot
+.claude/settings.local.json

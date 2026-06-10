@@ -10,8 +10,7 @@ const env = "dev";
 // Service name for logging and monitoring in IDAS - should be unique to your app
 const serviceName = "svelte-idas-app";
 
-async function setupAuthAndApi() 
-{
+async function setupAuthAndApi() {
     const envConfig = await fetchEnvConfig(env);
     const authManager = await fluentIdasAuthManager(appToken, envConfig.idas).init();
     if (!authManager) {
@@ -19,14 +18,19 @@ async function setupAuthAndApi()
     }
 
     const idas = idasFluentApi(envConfig.idas, authManager, serviceName);
-    const api = fluentApi("/api", authManager, serviceName);    
+    const api = fluentApi("/api", authManager, serviceName);
     return { idas, api };
 }
 
 const { idas, api } = await setupAuthAndApi();
 
+const target = document.getElementById("app");
+if (!target) {
+    throw new Error("Mount target #app not found");
+}
+
 const app = mount(App, {
-    target: document.getElementById("app"),
+    target,
     props: { idas, api },
 });
 
