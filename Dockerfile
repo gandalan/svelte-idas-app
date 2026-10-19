@@ -17,7 +17,7 @@ RUN cd frontend && npm ci
 
 # Copy everything else, build frontend and publish a release
 COPY . ./
-RUN cd frontend && npx vite build
+RUN cd frontend && npm run build:frontend
 RUN cd backend && dotnet publish -c Release -o out --no-restore
 
 # Build runtime image

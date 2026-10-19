@@ -2,11 +2,14 @@ import js from "@eslint/js";
 import svelte from "eslint-plugin-svelte";
 
 const browserGlobals = {
+    CSSPropertyRule: "readonly",
     URL: "readonly",
     URLSearchParams: "readonly",
     console: "readonly",
     document: "readonly",
+    fetch: "readonly",
     globalThis: "readonly",
+    history: "readonly",
     localStorage: "readonly",
     location: "readonly",
     window: "readonly",

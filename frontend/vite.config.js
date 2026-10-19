@@ -18,6 +18,8 @@ export default defineConfig({
         },
     },
     server: {
+        // NeherApp3 loads neherapp3.js from here in development (other origin)
+        cors: true,
         port: 5000,
         watch: {
             usePolling: true,
