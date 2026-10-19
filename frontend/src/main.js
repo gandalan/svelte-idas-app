@@ -2,10 +2,15 @@ import { mount } from "svelte";
 import { fetchEnvConfig, fluentApi, fluentIdasAuthManager, idasFluentApi } from "@gandalan/weblibs";
 import App from "./App.svelte";
 import { serviceName } from "./appConfig.js";
+import { startThemeAutomation } from "./lib/theme.js";
 import { idasBackend, localBackend } from "./stores";
+import "./fonts.css";
 import "./index.css";
 
 // Standalone entry (browser, iframe). Inside the NeherApp3 shell neherapp3.js is loaded instead.
+
+// Before anything else, so the page does not render in the light theme first and then switch
+startThemeAutomation();
 
 // Replace with your actual app token - assigned by Gandalan
 // (for local testing it can also be set as VITE_IDAS_APP_TOKEN in src/.env.local, which is not committed)

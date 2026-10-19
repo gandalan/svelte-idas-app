@@ -2,6 +2,12 @@
   import { href, router } from "./router.svelte.js";
 </script>
 
-<h1>Seite nicht gefunden</h1>
-<p>Für <code>{router.path}</code> gibt es keine Seite.</p>
-<p><a href={href("/")}>Zur Startseite</a></p>
+<div class="card bg-base-100 border border-base-300">
+  <div class="card-body">
+    <h1 class="card-title text-2xl">Seite nicht gefunden</h1>
+    <p>Für <code>{router.path}</code> gibt es keine Seite.</p>
+    <div class="card-actions">
+      <a class="btn btn-primary" href={href("/")}>Zur Startseite</a>
+    </div>
+  </div>
+</div>

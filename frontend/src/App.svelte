@@ -17,6 +17,16 @@
   // svelte-ignore state_referenced_locally
   onDestroy(startRouter({ mode: inNeherApp3 ? "hash" : "path", prefix: inNeherApp3 ? `${moduleName}/` : "", routes, notFound }));
 
+  const navRoutes = routes.filter((r) => r.title);
+
+  // Standalone demo: switch the theme by hand (main.js sets the initial one from the system setting)
+  let theme = $state(document.documentElement.dataset.theme ?? "neher");
+  $effect(() => {
+    if (!inNeherApp3) {
+      document.documentElement.dataset.theme = theme;
+    }
+  });
+
   /**
    * In path mode navigate without a full page reload; the hash mode is handled by the browser.
    * @param {MouseEvent} event
@@ -30,14 +40,37 @@
   }
 </script>
 
-<main class={inNeherApp3 ? "h-full" : "min-h-screen"}>
-  <nav class="flex items-center gap-4 mb-4">
-    <img src={logo} alt="Svelte Logo" class="w-16" />
-    <a href={href("/")} onclick={(e) => onNavigate(e, "/")}>Mandant</a>
-    <a href={href("/counter")} onclick={(e) => onNavigate(e, "/counter")}>Counter</a>
-  </nav>
+<!-- Named container "content" like the shell's content area, so pages can use @3xl/content: in both cases -->
+<div class="bg-base-200 text-base-content {inNeherApp3 ? 'h-full overflow-auto' : 'min-h-screen @container/content'}">
+  {#if !inNeherApp3}
+    <!-- Standalone only: inside NeherApp3 the shell provides header and menu -->
+    <header class="navbar bg-base-100 border-b border-base-300 px-4 gap-2">
+      <a class="flex items-center gap-2 font-semibold mr-4" href={href("/")} onclick={(e) => onNavigate(e, "/")}>
+        <img src={logo} alt="" class="w-8" />
+        Svelte IDAS App
+      </a>
+      <nav class="tabs tabs-border self-stretch" aria-label="Hauptnavigation">
+        {#each navRoutes as route (route.path)}
+          <a
+            class="tab h-full"
+            class:tab-active={router.path === route.path}
+            aria-current={router.path === route.path ? "page" : undefined}
+            href={href(route.path)}
+            onclick={(e) => onNavigate(e, route.path)}
+          >{route.title}</a>
+        {/each}
+      </nav>
+      <select class="select select-sm w-auto ml-auto" bind:value={theme} aria-label="Theme">
+        <option value="neher">Hell</option>
+        <option value="neher-dark">Dunkel</option>
+        <option value="i3">i3</option>
+      </select>
+    </header>
+  {/if}
 
-  {#key router.path}
-    <router.component />
-  {/key}
-</main>
+  <main class="p-4 @3xl/content:p-6 max-w-6xl mx-auto">
+    {#key router.path}
+      <router.component />
+    {/key}
+  </main>
+</div>

@@ -18,13 +18,15 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@gandalan/weblibs": "^2.0.20"
+    "@gandalan/weblibs": "^2.0.21",
+    "@lucide/svelte": "^1.59.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
     "@tailwindcss/vite": "^4.3.3",
     "concurrently": "^10.0.6",
+    "daisyui": "^5.7.50",
     "eslint": "^10.13.0",
     "eslint-plugin-svelte": "^3.23.1",
     "svelte": "^5.57.2",
