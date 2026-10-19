@@ -10,6 +10,9 @@ const appToken = "<YOUR_APP_TOKEN>";
 const env = "dev";
 // Service name for logging and monitoring in IDAS - should be unique to your app
 const serviceName = "svelte-idas-app";
+// The app is embedded into other applications on other hosts, so relative URLs like "/api" would hit the
+// host page's server. Resolve everything against the URL this script was loaded from instead.
+const appBaseUrl = new URL(".", import.meta.url);
 
 async function setupAuthAndApi() {
     const envConfig = await fetchEnvConfig(env);
@@ -19,7 +22,7 @@ async function setupAuthAndApi() {
     }
 
     const idas = idasFluentApi(envConfig.idas, authManager, serviceName);
-    const api = fluentApi("/api", authManager, serviceName);
+    const api = fluentApi(new URL("api", appBaseUrl).href, authManager, serviceName);
     return { idas, api };
 }
 

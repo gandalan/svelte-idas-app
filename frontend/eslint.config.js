@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import svelte from "eslint-plugin-svelte";
 
 const browserGlobals = {
+    URL: "readonly",
     URLSearchParams: "readonly",
     console: "readonly",
     document: "readonly",

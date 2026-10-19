@@ -30,4 +30,9 @@ export default defineConfig({
         },
     },
     root: "src",
+    experimental: {
+        // Load chunks and assets relative to the module itself, not the host page, so the app also works
+        // when embedded into another application. index.html keeps absolute URLs for SPA deep links.
+        renderBuiltUrl: (filename, { hostType }) => hostType === "html" ? undefined : { relative: true },
+    },
 })
