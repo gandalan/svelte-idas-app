@@ -1,12 +1,16 @@
+using IdasApp.Data;
+using IdasApp.Infrastructure;
+using IdasApp.Util;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using SvelteDotnetAppVite.Data;
 
-var root = Directory.GetCurrentDirectory();
-var dotEnv = Path.Combine(root, ".env");
-DotEnv.Load(dotEnv);
+DotEnv.Load(Path.Combine(Directory.GetCurrentDirectory(), ".env"));
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAppOptions();
+builder.Services.AddIdasAuthentication();
+builder.Services.AddProblemDetails();
 
 // The app is embedded into other applications (Shadow DOM / iframe) on other hosts,
 // so the API must be callable cross-origin. Auth uses a Bearer token header, not cookies,
@@ -38,15 +42,28 @@ builder.Services.AddHealthChecks().AddCheck("Basic Healthcheck", () => HealthChe
 var app = builder.Build();
 
 app.UseResponseCompression();
+if (!app.Environment.IsDevelopment())
+{
+    // unexpected errors as ProblemDetails without stack trace
+    app.UseExceptionHandler();
+}
 app.UseCors();
 
+// The frontend (wwwroot) is public; the IDAS login happens in the browser
 app.UseDefaultFiles();
 app.UseStaticFiles();
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapHealthChecks("/health").AllowAnonymous();
 
 // Data
-app.MapCounterEndpoint();
+var api = app.MapGroup("/api");
+api.MapCounterEndpoint();
 
 app.MapFallbackToFile("index.html").AllowAnonymous();
 
 app.Run();
+
+// for WebApplicationFactory<Program> in the tests
+public partial class Program;

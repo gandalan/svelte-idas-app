@@ -33,7 +33,10 @@ RUN apt-get update \
 
 EXPOSE 8080 8081
 
-ENV GDL.DBConnectionString=""
+# Configuration via environment variables when running the container (see backend/.env.sample):
+#   IDAS_API_JWT_PUBLIC_KEY          required, public key of the IDAS environment
+#   IDAS_APP_DB_CONNECTION_STRING    optional, database of the app
+#   Cors__AllowedOrigins__0          optional, restrict cross-origin callers
 
 VOLUME [ "/data" ]
 

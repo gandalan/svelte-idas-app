@@ -18,7 +18,7 @@
   const steps = [
     { title: "App-Token eintragen", text: "Bei dev-support@gandalan.de anfordern und in main.js eintragen." },
     { title: "Namen festlegen", text: "Service- und Modulname in appConfig.js, Projektname in backend/idas-app.csproj." },
-    { title: "Backend konfigurieren", text: "backend/.env.sample nach .env kopieren, Secrets nur dort ablegen." },
+    { title: "Backend konfigurieren", text: "backend/.env.sample nach .env kopieren und den IDAS-Public-Key eintragen. Secrets nur dort ablegen." },
     { title: "Eigene Seiten anlegen", text: "Seiten unter lib/pages/ bauen und in routerConf.js eintragen." },
   ];
 </script>

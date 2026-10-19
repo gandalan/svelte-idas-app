@@ -13,6 +13,8 @@
     "preview": "cd ../backend && dotnet run",
     "svelte-check": "svelte-check",
     "svelte-check:watch": "svelte-check --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "eslint .",
     "lint:prod": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix"
@@ -33,6 +35,7 @@
     "svelte-check": "^4.7.7",
     "svelte-eslint-parser": "^1.9.0",
     "tailwindcss": "^4.3.3",
-    "vite": "^8.3.4"
+    "vite": "^8.3.4",
+    "vitest": "^5.0.5"
   }
 }

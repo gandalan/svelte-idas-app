@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/backend/">
+    <Project Path="backend/idas-app.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/IdasApp.Tests/IdasApp.Tests.csproj" />
+  </Folder>
+</Solution>

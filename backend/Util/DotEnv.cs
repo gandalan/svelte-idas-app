@@ -1,3 +1,6 @@
+namespace IdasApp.Util;
+
+/// <summary>Loads backend/.env (local development only, not committed) into environment variables.</summary>
 public static class DotEnv
 {
     public static void Load(string filePath)
@@ -15,7 +18,7 @@ public static class DotEnv
                 continue;
             }
 
-            // Split only at the first '=' so values like connection strings may contain '='
+            // Split only at the first '=' so values like connection strings or keys may contain '='
             var separator = line.IndexOf('=');
             if (separator <= 0)
             {
@@ -29,7 +32,11 @@ public static class DotEnv
                 value = value[1..^1];
             }
 
-            Environment.SetEnvironmentVariable(key, value);
+            // Variables that are already set (e.g. by the container) win over the file
+            if (Environment.GetEnvironmentVariable(key) is null)
+            {
+                Environment.SetEnvironmentVariable(key, value);
+            }
         }
     }
 }
