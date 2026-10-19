@@ -1,19 +1,19 @@
 import { svelte } from "@sveltejs/vite-plugin-svelte"
+import tailwindcss from "@tailwindcss/vite"
 import { defineConfig } from "vite"
 
-// https://vitejs.dev/config/
+// https://vite.dev/config/
 export default defineConfig({
-    plugins: [svelte()],
+    plugins: [tailwindcss(), svelte()],
     build: {
         outDir: "../../backend/wwwroot",
         emptyOutDir: true,
         target: "esnext",
-        rollupOptions: {
+        rolldownOptions: {
             output: {
                 entryFileNames: "[name].js",
                 assetFileNames: "[name].[ext]",
                 chunkFileNames: "[name].js",
-                manualChunks: undefined,
             },
         },
     },

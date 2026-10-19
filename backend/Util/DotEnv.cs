@@ -7,15 +7,29 @@ public static class DotEnv
             return;
         }
 
-        foreach (var line in File.ReadAllLines(filePath))
+        foreach (var rawLine in File.ReadAllLines(filePath))
         {
-            var parts = line.Split('=', StringSplitOptions.RemoveEmptyEntries);
-            if (parts.Length != 2)
+            var line = rawLine.Trim();
+            if (line.Length == 0 || line.StartsWith('#'))
             {
                 continue;
             }
 
-            Environment.SetEnvironmentVariable(parts[0], parts[1]);
+            // Split only at the first '=' so values like connection strings may contain '='
+            var separator = line.IndexOf('=');
+            if (separator <= 0)
+            {
+                continue;
+            }
+
+            var key = line[..separator].Trim();
+            var value = line[(separator + 1)..].Trim();
+            if (value.Length >= 2 && (value[0] == '"' || value[0] == '\'') && value[^1] == value[0])
+            {
+                value = value[1..^1];
+            }
+
+            Environment.SetEnvironmentVariable(key, value);
         }
     }
 }

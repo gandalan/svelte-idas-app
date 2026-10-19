@@ -1,1 +1,4 @@
 @import "tailwindcss";
+
+/* Tailwind v4 ignores node_modules by default - scan the Gandalan UI components explicitly */
+@source "../node_modules/@gandalan/weblibs/ui";

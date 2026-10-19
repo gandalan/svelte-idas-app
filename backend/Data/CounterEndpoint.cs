@@ -6,8 +6,9 @@ public static class CounterEndpoint
     public static void MapCounterEndpoint(this IEndpointRouteBuilder app) =>
         app.MapGet("/api/counter", () =>
         {
-            return ++_count % 3 == 0
+            var count = Interlocked.Increment(ref _count);
+            return count % 3 == 0
                 ? Results.Json("Hoppla")
-                : Results.Json(_count);
+                : Results.Json(count);
         });
 }

@@ -1,20 +1,24 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build-env
 
 RUN apt-get update \
-    && apt-get install -y libpng-dev libjpeg-dev curl libxi6 build-essential libgl1-mesa-glx \
-    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
-    && apt-get install -y nodejs \
+    && apt-get install -y --no-install-recommends ca-certificates curl \
+    && curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
 WORKDIR /app
-# Copy everything
-COPY . ./
-# Restore as distinct layers
+
+# Restore as distinct layers so they are cached as long as the dependencies do not change
+COPY backend/*.csproj ./backend/
 RUN cd backend && dotnet restore
-RUN cd frontend && npm install && npm run build
-# Build and publish a release
-RUN cd backend && dotnet publish -c Release -o out
+COPY frontend/package.json frontend/package-lock.json ./frontend/
+RUN cd frontend && npm ci
+
+# Copy everything else, build frontend and publish a release
+COPY . ./
+RUN cd frontend && npx vite build
+RUN cd backend && dotnet publish -c Release -o out --no-restore
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final

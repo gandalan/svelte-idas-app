@@ -1,6 +1,7 @@
 import { mount } from "svelte";
 import { fetchEnvConfig, fluentApi, fluentIdasAuthManager, idasFluentApi } from "@gandalan/weblibs";
 import App from "./App.svelte";
+import { idasBackend, localBackend } from "./stores";
 import "./index.css";
 
 // Replace with your actual app token - assigned by Gandalan
@@ -24,14 +25,15 @@ async function setupAuthAndApi() {
 
 const { idas, api } = await setupAuthAndApi();
 
+// Set before mounting so all components can use the backends during their initialization
+idasBackend.set(idas);
+localBackend.set(api);
+
 const target = document.getElementById("app");
 if (!target) {
     throw new Error("Mount target #app not found");
 }
 
-const app = mount(App, {
-    target,
-    props: { idas, api },
-});
+const app = mount(App, { target });
 
 export default app;

@@ -7,9 +7,24 @@ var dotEnv = Path.Combine(root, ".env");
 DotEnv.Load(dotEnv);
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddCors();
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+
+// The app is embedded into other applications (Shadow DOM / iframe) on other hosts,
+// so the API must be callable cross-origin. Auth uses a Bearer token header, not cookies,
+// so credentials are not needed. Restrict origins via Cors:AllowedOrigins (e.g. env Cors__AllowedOrigins__0).
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
+{
+    if (allowedOrigins.Length == 0 || allowedOrigins.Contains("*"))
+    {
+        policy.AllowAnyOrigin();
+    }
+    else
+    {
+        policy.WithOrigins(allowedOrigins);
+    }
+
+    policy.AllowAnyMethod().AllowAnyHeader();
+}));
 
 builder.Services.AddResponseCompression(options =>
 {
@@ -23,28 +38,15 @@ builder.Services.AddHealthChecks().AddCheck("Basic Healthcheck", () => HealthChe
 var app = builder.Build();
 
 app.UseResponseCompression();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
-
-app.UseCors(options =>
-{
-    options.AllowAnyMethod().AllowAnyHeader();
-    options.SetIsOriginAllowed((host) => true);
-    options.AllowCredentials();
-});
+app.UseCors();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
-app.UseRouting();
-app.MapRazorPages();
-app.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
-app.MapFallbackToFile("index.html").AllowAnonymous();
 app.MapHealthChecks("/health").AllowAnonymous();
 
 // Data
 app.MapCounterEndpoint();
+
+app.MapFallbackToFile("index.html").AllowAnonymous();
 
 app.Run();
