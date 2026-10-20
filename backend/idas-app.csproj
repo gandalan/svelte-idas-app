@@ -4,15 +4,15 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
+    <RootNamespace>IdasApp</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="package.json" />
-    <Content Remove="package*.json" />
-    <Content Remove="src\**\*" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.13" />
   </ItemGroup>
 
   <ItemGroup>
+    <!-- wwwroot is built by Vite; dotnet watch must not react to it -->
     <Content Remove="wwwroot\**" />
     <Content Include="wwwroot\**" Watch="false" />
   </ItemGroup>

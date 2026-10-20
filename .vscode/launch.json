@@ -14,7 +14,7 @@
             "runtimeArgs": [
                 "--remote-debugging-port=9222"
             ],
-            "url": "http://localhost:5000", // Provide your project's url to finish configuring
+            "url": "http://localhost:5000",
             "presentation": {
                 "hidden": true
             },
@@ -28,7 +28,7 @@
                 "--headless",
                 "--remote-debugging-port=9222"
             ],
-            "url": "http://localhost:5000", // Provide your project's url to finish configuring
+            "url": "http://localhost:5000",
             "presentation": {
                 "hidden": true
             },
@@ -39,7 +39,7 @@
             "name": "Open Edge DevTools",
             "request": "attach",
             "webRoot": "${workspaceFolder}",
-            "url": "http://localhost:5000", // Provide your project's url to finish configuring
+            "url": "http://localhost:5000",
             "presentation": {
                 "hidden": true
             }

@@ -1,23 +1,25 @@
 import { svelte } from "@sveltejs/vite-plugin-svelte"
+import tailwindcss from "@tailwindcss/vite"
 import { defineConfig } from "vite"
 
-// https://vitejs.dev/config/
+// https://vite.dev/config/
 export default defineConfig({
-    plugins: [svelte()],
+    plugins: [tailwindcss(), svelte()],
     build: {
         outDir: "../../backend/wwwroot",
         emptyOutDir: true,
         target: "esnext",
-        rollupOptions: {
+        rolldownOptions: {
             output: {
                 entryFileNames: "[name].js",
                 assetFileNames: "[name].[ext]",
                 chunkFileNames: "[name].js",
-                manualChunks: undefined,
             },
         },
     },
     server: {
+        // NeherApp3 loads neherapp3.js from here in development (other origin)
+        cors: true,
         port: 5000,
         watch: {
             usePolling: true,
@@ -30,4 +32,9 @@ export default defineConfig({
         },
     },
     root: "src",
+    experimental: {
+        // Load chunks and assets relative to the module itself, not the host page, so the app also works
+        // when embedded into another application. index.html keeps absolute URLs for SPA deep links.
+        renderBuiltUrl: (filename, { hostType }) => hostType === "html" ? undefined : { relative: true },
+    },
 })

@@ -1,15 +1,34 @@
+using IdasApp.Data;
+using IdasApp.Infrastructure;
+using IdasApp.Util;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using SvelteDotnetAppVite.Data;
 
-var root = Directory.GetCurrentDirectory();
-var dotEnv = Path.Combine(root, ".env");
-DotEnv.Load(dotEnv);
+DotEnv.Load(Path.Combine(Directory.GetCurrentDirectory(), ".env"));
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddCors();
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+
+builder.Services.AddAppOptions();
+builder.Services.AddIdasAuthentication();
+builder.Services.AddProblemDetails();
+
+// The app is embedded into other applications (Shadow DOM / iframe) on other hosts,
+// so the API must be callable cross-origin. Auth uses a Bearer token header, not cookies,
+// so credentials are not needed. Restrict origins via Cors:AllowedOrigins (e.g. env Cors__AllowedOrigins__0).
+var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
+{
+    if (allowedOrigins.Length == 0 || allowedOrigins.Contains("*"))
+    {
+        policy.AllowAnyOrigin();
+    }
+    else
+    {
+        policy.WithOrigins(allowedOrigins);
+    }
+
+    policy.AllowAnyMethod().AllowAnyHeader();
+}));
 
 builder.Services.AddResponseCompression(options =>
 {
@@ -23,28 +42,30 @@ builder.Services.AddHealthChecks().AddCheck("Basic Healthcheck", () => HealthChe
 var app = builder.Build();
 
 app.UseResponseCompression();
-
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
+    // unexpected errors as ProblemDetails without stack trace
+    app.UseExceptionHandler();
 }
+app.UseCors();
 
-app.UseCors(options =>
-{
-    options.AllowAnyMethod().AllowAnyHeader();
-    options.SetIsOriginAllowed((host) => true);
-    options.AllowCredentials();
-});
-
+// The frontend (wwwroot) is public; the IDAS login happens in the browser
 app.UseDefaultFiles();
 app.UseStaticFiles();
-app.UseRouting();
-app.MapRazorPages();
-app.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
-app.MapFallbackToFile("index.html").AllowAnonymous();
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapHealthChecks("/health").AllowAnonymous();
 
 // Data
-app.MapCounterEndpoint();
+var api = app.MapGroup("/api");
+api.MapCounterEndpoint();
+// Unknown API paths are a 404, not the index.html of the frontend fallback below
+api.MapFallback(() => Results.NotFound());
+
+app.MapFallbackToFile("index.html").AllowAnonymous();
 
 app.Run();
+
+// for WebApplicationFactory<Program> in the tests
+public partial class Program;

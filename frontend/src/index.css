@@ -1,1 +1,9 @@
 @import "tailwindcss";
+/* Shared Gandalan theme (neher, neher-dark, i3) for Tailwind 4 + daisyUI 5, selected via data-theme */
+@import "@gandalan/weblibs/ui/theme/neher-theme.css";
+
+/* Tailwind v4 ignores node_modules by default - scan the Gandalan UI components explicitly */
+@source "../node_modules/@gandalan/weblibs/ui";
+
+/* Optional: override single theme variables after the import, e.g.
+   [data-theme="neher"] { --color-primary: #5a9a1f; } */

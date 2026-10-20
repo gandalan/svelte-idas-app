@@ -1,1 +1,1 @@
-this file is available as /staticfile.txt in dev an prod builds
+this file is available as /staticfile.txt in dev and prod builds

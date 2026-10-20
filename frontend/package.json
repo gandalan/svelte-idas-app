@@ -8,32 +8,34 @@
     "dev:open": "concurrently \"npm:dev:backend\" \"npm:dev:frontend -- --open\"",
     "dev:backend": "cd ../backend && dotnet watch",
     "dev:frontend": "vite",
-    "build": "vite build && cd ../backend && dotnet build",
+    "build": "npm run build:frontend && cd ../backend && dotnet build",
+    "build:frontend": "vite build && vite build --config vite.neherapp3.config.js",
     "preview": "cd ../backend && dotnet run",
     "svelte-check": "svelte-check",
     "svelte-check:watch": "svelte-check --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "eslint .",
     "lint:prod": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@gandalan/weblibs": "^2.0.2",
-    "svelte-mini-router": "^1.0.4",
-    "validator": "^13.15.35"
+    "@gandalan/weblibs": "^2.0.21",
+    "@lucide/svelte": "^1.59.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@sveltejs/vite-plugin-svelte": "^7.1.2",
-    "@tailwindcss/postcss": "^4.3.1",
-    "autoprefixer": "^10.5.0",
-    "concurrently": "^10.0.3",
-    "eslint": "^10.5.0",
-    "eslint-plugin-svelte": "^3.19.0",
-    "postcss": "^8.5.15",
-    "svelte": "^5.56.3",
-    "svelte-check": "^4.6.0",
-    "svelte-eslint-parser": "^1.8.0",
-    "tailwindcss": "^4.3.1",
-    "vite": "^8.1.0"
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "concurrently": "^10.0.6",
+    "daisyui": "^5.7.50",
+    "eslint": "^10.13.0",
+    "eslint-plugin-svelte": "^3.23.1",
+    "svelte": "^5.57.2",
+    "svelte-check": "^4.7.7",
+    "svelte-eslint-parser": "^1.9.0",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.5"
   }
 }

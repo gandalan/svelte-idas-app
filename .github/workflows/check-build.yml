@@ -9,13 +9,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@v7
       with:
-        node-version: 20
+        node-version: 24
+        cache: npm
+        cache-dependency-path: frontend/package-lock.json
+    - uses: actions/setup-dotnet@v6
+      with:
+        dotnet-version: 10.0.x
+
     - run: cd frontend && npm ci
-    # Uncomment these lines after fixing main.js in your project
-    #- run: npm run svelte-check
-    #- run: npm run lint:prod
-    #- run: npm run build
+    - run: cd frontend && npm audit --audit-level=high
+    - run: cd frontend && npm run svelte-check
+    - run: cd frontend && npm run lint:prod
+    - run: cd frontend && npm test
+    - run: cd frontend && npm run build
+    - run: dotnet test --solution svelte-idas-app.slnx
