@@ -60,6 +60,8 @@ app.MapHealthChecks("/health").AllowAnonymous();
 // Data
 var api = app.MapGroup("/api");
 api.MapCounterEndpoint();
+// Unknown API paths are a 404, not the index.html of the frontend fallback below
+api.MapFallback(() => Results.NotFound());
 
 app.MapFallbackToFile("index.html").AllowAnonymous();
 

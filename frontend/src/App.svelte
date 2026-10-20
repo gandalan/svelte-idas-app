@@ -1,7 +1,8 @@
 <script>
   import { onDestroy } from "svelte";
   import logoUrl from "./assets/svelte.png";
-  import { href, navigate, router, startRouter } from "./lib/router.svelte.js";
+  import { followLink, href, router, startRouter } from "./lib/router.svelte.js";
+  import { chooseTheme } from "./lib/theme.js";
   import { notFound, routes } from "./routerConf.js";
 
   // embedding "neherapp3": module inside the shell (neherapp3.js) - hash routing below the module name
@@ -19,25 +20,19 @@
 
   const navRoutes = routes.filter((r) => r.title);
 
-  // Standalone demo: switch the theme by hand (main.js sets the initial one from the system setting)
+  // Standalone demo: switch the theme by hand (main.js sets the initial one from the system setting
+  // and keeps following it until a theme is chosen here)
   let theme = $state(document.documentElement.dataset.theme ?? "neher");
   $effect(() => {
-    if (!inNeherApp3) {
-      document.documentElement.dataset.theme = theme;
+    if (inNeherApp3) {
+      return;
     }
+    const observer = new MutationObserver(() => {
+      theme = document.documentElement.dataset.theme ?? "neher";
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => observer.disconnect();
   });
-
-  /**
-   * In path mode navigate without a full page reload; the hash mode is handled by the browser.
-   * @param {MouseEvent} event
-   * @param {string} path
-   */
-  function onNavigate(event, path) {
-    if (!inNeherApp3 && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.button === 0) {
-      event.preventDefault();
-      navigate(path);
-    }
-  }
 </script>
 
 <!-- Named container "content" like the shell's content area, so pages can use @3xl/content: in both cases -->
@@ -45,7 +40,7 @@
   {#if !inNeherApp3}
     <!-- Standalone only: inside NeherApp3 the shell provides header and menu -->
     <header class="navbar bg-base-100 border-b border-base-300 px-4 gap-2">
-      <a class="flex items-center gap-2 font-semibold mr-4" href={href("/")} onclick={(e) => onNavigate(e, "/")}>
+      <a class="flex items-center gap-2 font-semibold mr-4" href={href("/")} onclick={followLink}>
         <img src={logo} alt="" class="w-8" />
         Svelte IDAS App
       </a>
@@ -56,11 +51,11 @@
             class:tab-active={router.path === route.path}
             aria-current={router.path === route.path ? "page" : undefined}
             href={href(route.path)}
-            onclick={(e) => onNavigate(e, route.path)}
+            onclick={followLink}
           >{route.title}</a>
         {/each}
       </nav>
-      <select class="select select-sm w-auto ml-auto" bind:value={theme} aria-label="Theme">
+      <select class="select select-sm w-auto ml-auto" value={theme} onchange={(e) => chooseTheme(e.currentTarget.value)} aria-label="Theme">
         <option value="neher">Hell</option>
         <option value="neher-dark">Dunkel</option>
         <option value="i3">i3</option>

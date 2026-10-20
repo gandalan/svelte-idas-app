@@ -14,12 +14,15 @@ public sealed class TestApp : WebApplicationFactory<Program>
 {
     private readonly RSA _key = RSA.Create(2048);
 
+    /// <summary>Overrides the configured public key, e.g. to test the validation on start.</summary>
+    public string? PublicKey { get; init; }
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment("Testing");
         builder.ConfigureAppConfiguration((_, config) => config.AddInMemoryCollection(new Dictionary<string, string?>
         {
-            ["IDAS_API_JWT_PUBLIC_KEY"] = _key.ToXmlString(includePrivateParameters: false),
+            ["IDAS_API_JWT_PUBLIC_KEY"] = PublicKey ?? _key.ToXmlString(includePrivateParameters: false),
         }));
     }
 

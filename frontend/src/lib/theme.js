@@ -12,6 +12,8 @@ export function resolveTheme({ search = "", dark = false } = {}) {
     return dark ? "neher-dark" : "neher";
 }
 
+let stopAutomation = () => {};
+
 /**
  * Standalone only (inside NeherApp3 the shell sets data-theme): sets data-theme on <html> and follows
  * changes of the system setting. ?theme= is only read on start, navigating drops the query.
@@ -25,5 +27,16 @@ export function startThemeAutomation({ target = document.documentElement, win = 
     };
     apply();
     darkQuery.addEventListener("change", apply);
-    return () => darkQuery.removeEventListener("change", apply);
+    stopAutomation = () => darkQuery.removeEventListener("change", apply);
+    return stopAutomation;
+}
+
+/**
+ * Theme chosen by hand: wins over the system setting from now on
+ * @param {string} theme
+ * @param {HTMLElement} [target]
+ */
+export function chooseTheme(theme, target = document.documentElement) {
+    stopAutomation();
+    target.dataset.theme = theme;
 }

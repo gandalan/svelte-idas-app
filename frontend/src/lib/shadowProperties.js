@@ -66,7 +66,12 @@ async function register(cssAddress, id, doc) {
     if (doc.getElementById(id)) {
         return;
     }
-    const css = await fetch(cssAddress).then(r => r.text());
+    const response = await fetch(cssAddress);
+    if (!response.ok) {
+        // an error page would look like CSS without properties and never be retried
+        throw new Error(`${cssAddress}: HTTP ${response.status}`);
+    }
+    const css = await response.text();
     const rules = missingPropertyRules(css, registeredNames(doc));
     if (!rules.length) {
         return;

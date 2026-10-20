@@ -24,11 +24,14 @@ export function readLocation({ mode, prefix = "" }, location) {
         return { path: location.pathname || "/", search: location.search ?? "" };
     }
     const hash = (location.hash ?? "").replace(/^#/, "");
-    // belongs to another module of the shell: not ours
-    if (!hash.startsWith(prefix)) {
+    // "#my-app" counts like "#my-app/"
+    const name = prefix.replace(/\/$/, "");
+    const rest = hash.slice(name.length);
+    // belongs to another module of the shell (also "#my-app-other/..."): not ours
+    if (!hash.startsWith(name) || (name && rest && !/^[/?]/.test(rest))) {
         return null;
     }
-    const [path, query] = hash.slice(prefix.length).split("?");
+    const [path, query] = rest.split("?");
     return { path: `/${path.replace(/^\/+/, "")}`, search: query ? `?${query}` : "" };
 }
 
@@ -115,6 +118,27 @@ export function navigate(path, query) {
         history.pushState(null, "", target);
         update();
     }
+}
+
+/**
+ * onclick for links to own pages (<a href={href(...)} onclick={followLink}>): in path mode navigates
+ * without a full page reload; the hash mode is handled by the browser
+ * @param {MouseEvent & { currentTarget: HTMLAnchorElement }} event
+ */
+export function followLink(event) {
+    if (settings.mode !== "path" || event.defaultPrevented || event.button !== 0
+        || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) {
+        return;
+    }
+    // only read once, nothing reactive
+    // eslint-disable-next-line svelte/prefer-svelte-reactivity
+    const url = new URL(event.currentTarget.href);
+    if (url.origin !== window.location.origin) {
+        return;
+    }
+    event.preventDefault();
+    history.pushState(null, "", url.pathname + url.search);
+    update();
 }
 
 /**

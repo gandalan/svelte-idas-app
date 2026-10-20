@@ -33,10 +33,13 @@ describe("readLocation", () => {
         expect(readLocation(mode, { hash: "#my-app/item/f1" })).toEqual({ path: "/item/f1", search: "" });
         expect(readLocation(mode, { hash: "#my-app/counter?x=1" })).toEqual({ path: "/counter", search: "?x=1" });
         expect(readLocation(mode, { hash: "#my-app/" })).toEqual({ path: "/", search: "" });
+        expect(readLocation(mode, { hash: "#my-app" })).toEqual({ path: "/", search: "" });
+        expect(readLocation(mode, { hash: "#my-app?x=1" })).toEqual({ path: "/", search: "?x=1" });
     });
 
     it("ignores hashes of other modules", () => {
         expect(readLocation({ mode: "hash", prefix: "my-app/" }, { hash: "#other-module/" })).toBeNull();
+        expect(readLocation({ mode: "hash", prefix: "my-app/" }, { hash: "#my-app-other/" })).toBeNull();
     });
 });
 

@@ -38,6 +38,14 @@ public sealed class ApiTests(TestApp app) : IClassFixture<TestApp>
     }
 
     [Fact]
+    public async Task Unknown_api_paths_are_not_found_instead_of_the_frontend()
+    {
+        var response = await ClientWithToken(app.CreateToken()).GetAsync("/api/does-not-exist", TestContext.Current.CancellationToken);
+
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+    }
+
+    [Fact]
     public async Task Api_rejects_a_token_of_another_issuer()
     {
         var response = await ClientWithToken(app.CreateToken(issuer: "https://example.com")).GetAsync("/api/counter", TestContext.Current.CancellationToken);

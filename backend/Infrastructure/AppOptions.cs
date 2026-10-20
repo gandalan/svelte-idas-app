@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
 
 namespace IdasApp.Infrastructure;
 
@@ -29,7 +30,24 @@ public static class AppOptionsExtensions
             .ValidateDataAnnotations()
             // placeholder from .env.sample
             .Validate(o => o.JwtPublicKey != "TODO", "JWT public key missing (IDAS_API_JWT_PUBLIC_KEY is still TODO)")
+            // otherwise a broken key would only fail with every authenticated request
+            .Validate(o => o.JwtPublicKey is "" or "TODO" || IsRsaXmlKey(o.JwtPublicKey),
+                "JWT public key invalid (IDAS_API_JWT_PUBLIC_KEY must be the RSA public key as XML)")
             .ValidateOnStart();
         return services;
+    }
+
+    private static bool IsRsaXmlKey(string xml)
+    {
+        try
+        {
+            using var rsa = RSA.Create();
+            rsa.FromXmlString(xml);
+            return true;
+        }
+        catch (Exception e) when (e is CryptographicException or System.Xml.XmlException or FormatException)
+        {
+            return false;
+        }
     }
 }

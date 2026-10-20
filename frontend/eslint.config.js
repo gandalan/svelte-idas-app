@@ -12,6 +12,7 @@ const browserGlobals = {
     history: "readonly",
     localStorage: "readonly",
     location: "readonly",
+    MutationObserver: "readonly",
     window: "readonly",
 };
 

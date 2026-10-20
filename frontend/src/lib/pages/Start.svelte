@@ -1,11 +1,10 @@
 <script>
   import { Building2, CircleCheck, Server, UserRound } from "@lucide/svelte";
   import { idasBackend, localBackend } from "../../stores";
-  import { href } from "../router.svelte.js";
+  import { followLink, href } from "../router.svelte.js";
   import UiShowcase from "../components/UiShowcase.svelte";
 
-  /** @type {{ id?: string, benutzerGuid?: string, mandantGuid?: string, rights?: string | string[] } | undefined} */
-  const userInfo = /** @type {any} */ ($idasBackend)?.authManager?.userInfo ?? /** @type {any} */ ($idasBackend)?.userInfo;
+  const userInfo = /** @type {{ id?: string, benutzerGuid?: string, mandantGuid?: string, rights?: string | string[] } | undefined} */ ($idasBackend?.userInfo);
   const rights = [userInfo?.rights ?? []].flat();
 
   const mandantPromise = userInfo?.mandantGuid && $idasBackend
@@ -61,7 +60,7 @@
             {#if mandant.IstHaendler}<span class="badge badge-soft badge-accent">Händler</span>{/if}
           </div>
           <div class="card-actions justify-end">
-            <a class="btn btn-sm btn-ghost" href={href("/mandant")}>Details</a>
+            <a class="btn btn-sm btn-ghost" href={href("/mandant")} onclick={followLink}>Details</a>
           </div>
         {:catch error}
           <p class="text-error text-sm">{error.message}</p>
