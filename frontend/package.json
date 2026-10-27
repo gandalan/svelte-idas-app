@@ -20,7 +20,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@gandalan/weblibs": "^2.0.21",
+    "@gandalan/weblibs": "^2.0.24",
     "@lucide/svelte": "^1.59.0"
   },
   "devDependencies": {
